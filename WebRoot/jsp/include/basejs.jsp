@@ -1,0 +1,14 @@
+<script language="javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script language="javascript" src="<%=path%>/res/js/jquery.alerts.js"></script>
+<script language="javascript" src="<%=path%>/res/js/jquery.cookie.js"></script>
+<script language="javascript" src="<%=path%>/res/js/jquery.hotkeys.js"></script>
+<script language="javascript" src="<%=path%>/res/js/fn_table_color.js"></script>
+<script language="javascript" src="<%=path%>/res/js/jquery.pager.js"></script>
+<script language="javascript" src="<%=path%>/res/js/jquery.metadata.js"></script>
+<script language="javascript" src="<%=path%>/res/js/jquery.validate.js"></script>
+<script language="javascript" src="<%=path%>/res/js/jquery.validate.methods.js"></script>
+<script language="javascript" src="<%=path%>/res/js/jquery.validate.cn.js"></script>
+<script language="javascript" src="<%=path%>/res/js/jquery.autocomplete.js"></script>
+<script language="javascript" src="<%=path%>/res/js/jquery.colorbox.js?v=20120923"></script>
+<script type='text/javascript' src='<%=path%>/res/js/My97DatePicker/WdatePicker.js'></script>
+<script language="javascript" src="<%=path%>/res/js/base.js?v=20120926"></script>

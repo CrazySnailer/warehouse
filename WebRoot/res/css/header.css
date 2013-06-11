@@ -1,0 +1,234 @@
+body{
+	margin:0px;
+	font-family: Microsoft Yahei, helvetica, tahoma, arial,华文黑体,黑体,宋体; 
+	font-size:14px;
+}
+.login {
+	text-align: center;
+	background: url(../images/login_bg.jpg) no-repeat;
+}
+.login #loginform {
+	text-align: left;
+	position: relative;
+}
+
+.login #loginform .error{
+	float:left;
+	position:relative;
+	left:10px;
+	top:0px;
+	padding:4px 10px;	
+	color:#C82820;
+	text-align:left;
+	white-space:nowrap;
+	z-index:10;
+}
+.login #checkerror{
+		padding-left:35px;
+		padding-bottom:10px;
+}
+.login #checkerror .errorMessage{
+	color:#C82820;
+}
+	
+.login #loginarea {
+	padding-top:120px;
+	width:776px;
+	height:285px;
+	margin: 0px auto;
+}
+.login #loginleft {
+	float:left;
+	width:226px;
+	height:285px;
+	background: url(../images/login_left_pic.jpg) no-repeat;
+}
+.login #logincenter {
+	float:left;
+	width:506px;
+	height:285px;
+	padding-left:15px;
+	background: url(../images/login_center.jpg) repeat;
+	position: relative;
+}
+
+.login #logincenter #sysname{
+	padding-top:15px;	
+	height:57px;
+	font-style: italic;
+	font-size: 15pt;
+	color: #333;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.login #logincenter label{
+	float:left;
+	display:block;
+	color: #555;
+	height: 30px;
+	width:72px;
+	text-align:right;
+	padding-right:10px;
+	margin-top:5px;
+}
+
+.login #logincenter input{
+	float:left;
+	width:202px;
+}
+.login #logincenter img{	
+	cursor: hand;
+	float:left;
+	padding-top:3px;	
+	padding-left:4px;
+}
+
+.login #logincenter .vefify{
+	width:52px;
+}
+
+.login #loginright {
+	float:right;
+	width:29px;
+	height:285px;
+	background: url(../images/login_right.gif) no-repeat;
+}
+
+.login #logincenter .submitButton {
+	width: 60px;
+	height: 25px;
+	font-weight:700;	
+	color: #FD7672;
+	cursor: pointer;
+	border: none;
+	margin-right:5px;
+	background: url(../images/admin_button.gif) 0px 0px no-repeat;
+}
+
+.login #logincenter #footer{
+	position:relative;
+	left:0;
+	top:45px;
+	float:right;
+}
+
+.login #logincenter #footer a {
+	font-weight: bold;
+	color: #408C8A;	
+}
+.login #logincenter #footer a:hover {
+	font-weight: bold;
+	color: #FD7672;
+}
+
+.login #corp{
+	padding:10px;
+}
+.login #corp span{
+	font-weight: bold;
+	color: #FC302F;
+}
+
+.header {
+	height: 70px;
+	background: white url(../images/head_bg.jpg) repeat-x;
+}
+.header #logo{
+	float:left;
+	width:448px;
+	height:46px;
+	margin-top:10px;
+	padding-left: 30px;
+	font-size:30px;
+	color:#fff;
+}
+.header #info{
+	float:right;
+	width:400px;
+	height:46px;
+	margin-right:15px;
+	margin-top:8px;
+}
+.header #info #today{
+	margin-top:5px;
+	height:20px;
+	font-size: 9pt;
+	color: #1B76AA;
+	font-weight: bold;
+}
+.header #info #userinfo{
+	float:right;
+	height:20px;
+	font-size: 9pt;
+	overflow: hidden;
+}
+
+.header #navbtn{
+	float:right;
+	padding-left:15px;
+	height:24px;
+	width:260px;
+}
+.header #navbtn li{
+	float:left;
+	padding-top:5px;
+	padding-right:10px;
+	height:24px;
+	color: #FFF;
+}
+
+.header #navbtn li a{
+	font-size: 14px;
+	color: #FFF;
+	text-decoration: underline;
+}
+.header #navbtn li a:hover {
+	color: #ccedff;
+}
+
+.header #navbtn .twoword{
+	width:60px;
+}
+
+.header #navbtn img{
+	height:13px;
+	width:13px;
+	margin-right:5px;
+	margin-bottom:-2px;
+}
+
+.middle .main {
+width: 6px;
+height: 100%;
+cursor: pointer;
+}
+.middle .leftArrow {
+width: 5px;
+border-right: 1px solid #B2D3F4;
+background: url(../images/middle_bg.gif) #F1F6FB -6px center no-repeat;
+}
+.middle .normalS {
+cursor: none;
+width: 4px;
+border-right: 1px solid #B2D3F4;
+background: #F1F6FB -6px center no-repeat;
+}
+.middle .rightArrow {
+width: 5px;
+border-right: 1px solid #B2D3F4;
+background: url(../images/middle_bg.gif) #F1F6FB -18px center no-repeat;
+}
+.middle .rightArrow:hover {
+background-color: #E8F8F1;
+}
+
+#menu { list-style-type: none; float: left; height: 35px; float: left; font-size: 16px; line-height: 35px; position: absolute; top:24px; left: 250px; }
+#menu li { float: left; color: #03415e; line-height: 35px; height: 35px; }
+#menu li a { float: left; display: block; text-decoration: none; color: #fff; padding-left: 20px; }
+#menu li a span { padding-right: 20px; }
+#menu li a:hover { float: left; cursor: pointer; color: #ccedff; }
+#menu li a:hover span { float: left; }
+#menu li a.selected { float: left; cursor: pointer; color: #03415e; background: url(../images/nav.png) no-repeat; }
+#menu li a.selected span { float: left; background: url(../images/nav.png) right 35px; }
+* html #menu li a, #menu li a:visited { width: auto; }
