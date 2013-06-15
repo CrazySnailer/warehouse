@@ -21,6 +21,7 @@
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 	<!-- 后缀 -->
 	<constant name="struts.action.extension" value="action" />
+	<constant name="struts.allowed.action.names" value="[a-zA-Z]*" />
 
 	<!-- URL资源分隔符 -->
 	<constant name="struts.convention.action.name.separator" value="_" />
