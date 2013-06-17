@@ -70,7 +70,6 @@ public class DeptServiceImpl extends BaseServiceImpl implements DeptService {
 	/**
 	 * 使用递归获取指定的上级机构
 	 */
-	@Override
 	public TbSysDept findParentByDeptLevel(TbSysDept dept, String level) {
 		if (level.equals(dept.getDeptLevel())) {
 			return dept;
