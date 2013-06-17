@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 用户管理 -->
+	<package name="pkg_warehouse" namespace="/warehouse"  extends="basePackage">
+		<!--trust-->
+  		<action name="trust_*" class="com.calf.framework.warehouse.web.TrustAction" method="{1}">
+	        <interceptor-ref name="baseStack" />   
+			<result name="edit">/jsp/warehouse/trust/edit.jsp</result>
+			<result name="list">/jsp/warehouse/trust/list.jsp</result>
+			<result name="view">/jsp/warehouse/trust/view.jsp</result>
+		</action>
+	</package>
+</struts>

@@ -92,4 +92,7 @@
 	<!-- 前端 -->
 	<include file="config/struts/um/admin_common.xml" />
 	<include file="config/struts/um/admin_um.xml" />
+	
+	<!-- 仓储系统 -->
+	<include file="config/struts/warehouse/baseinfo.xml" />
 </struts>

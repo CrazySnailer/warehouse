@@ -226,13 +226,18 @@ table.qryTable td,table.editTable td {
 	font-size: 13px;
 	height: 32px;
 	font-weight: normal;
-	border-bottom: 1px dashed #eee;
+	border: 1px dashed #eee;
 	border-collapse: collapse;
 	padding-bottom: 0px;
 }
 
 table.editTable .right {
 	padding-right:10px;
+}
+
+table.editTable td.viewheader{
+	font-weight: bold;
+	color: #15428B;
 }
 
 /** http://papermashup.com/demos/css-buttons/*/

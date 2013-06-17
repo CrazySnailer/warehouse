@@ -1,7 +1,6 @@
 package com.calf.framework.util;
 
-public class BaseQuery implements java.io.Serializable{
-	
+public class BaseQuery implements java.io.Serializable{	
 	/**
 	 * 
 	 */

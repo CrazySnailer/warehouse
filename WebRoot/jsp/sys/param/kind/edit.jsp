@@ -60,8 +60,7 @@
 	</table>	
 </form>
 
-</div>
-            
+		</div>            
   	</div><!--div_tab_content-->
 </div><!--ajaxtabdiv-->
 
