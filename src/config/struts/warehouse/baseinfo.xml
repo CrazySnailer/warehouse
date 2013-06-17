@@ -6,12 +6,21 @@
 <struts>
 	<!-- 用户管理 -->
 	<package name="pkg_warehouse" namespace="/warehouse"  extends="basePackage">
-		<!--trust-->
+		<!--委托货主-->
   		<action name="trust_*" class="com.calf.framework.warehouse.web.TrustAction" method="{1}">
 	        <interceptor-ref name="baseStack" />   
 			<result name="edit">/jsp/warehouse/trust/edit.jsp</result>
 			<result name="list">/jsp/warehouse/trust/list.jsp</result>
 			<result name="view">/jsp/warehouse/trust/view.jsp</result>
 		</action>
+		
+		<!--供应商-->
+  		<action name="vendor_*" class="com.calf.framework.warehouse.web.VendorAction" method="{1}">
+	        <interceptor-ref name="baseStack" />   
+			<result name="edit">/jsp/warehouse/vendor/edit.jsp</result>
+			<result name="list">/jsp/warehouse/vendor/list.jsp</result>
+			<result name="view">/jsp/warehouse/vendor/view.jsp</result>
+		</action>
+		
 	</package>
 </struts>

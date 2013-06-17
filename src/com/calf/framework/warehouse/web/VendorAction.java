@@ -8,34 +8,34 @@ import com.calf.framework.util.Constants;
 import com.calf.framework.util.ObjectUtils;
 import com.calf.framework.vo.AdminUserInfo;
 import com.calf.framework.vo.Page;
-import com.calf.framework.warehouse.entity.TbWhTrust;
-import com.calf.framework.warehouse.qry.TrustQry;
-import com.calf.framework.warehouse.services.TrustService;
+import com.calf.framework.warehouse.entity.TbWhVendor;
+import com.calf.framework.warehouse.qry.VendorQry;
+import com.calf.framework.warehouse.services.VendorService;
 import com.calf.framework.web.BaseAction;
 import com.calf.framework.web.util.RequiresPermissions;
 
 
-public class TrustAction extends BaseAction {
+public class VendorAction extends BaseAction {
 
-		TrustService trustService;
+		VendorService vendorService;
 
-		TrustQry qry;
+		VendorQry qry;
 
 		Page page;
 
-		TbWhTrust entity;
+		TbWhVendor entity;
 		
 		/**
 		 * 列表
 		 */
-		@RequiresPermissions(value = "wh:trust:view",requiresUser=true)
+		@RequiresPermissions(value = "wh:vendor:view",requiresUser=true)
 		public String list() throws Exception{
 			AdminUserInfo userInfo = super.getUserInfo();
 			if(StringUtils.isNotBlank(super.qryHex)){
-				qry = (TrustQry)ObjectUtils.getObjectFromHex(qryHex);
+				qry = (VendorQry)ObjectUtils.getObjectFromHex(qryHex);
 			}
 			if(qry==null){
-				qry = new TrustQry();
+				qry = new VendorQry();
 				qry.setOrderCol("createDate");
 				qry.setOrderType(Constants.DESC);
 			}
@@ -47,16 +47,16 @@ public class TrustAction extends BaseAction {
 			}
 			
 			qry.setUserInfo(userInfo);
-			page = trustService.findTrustPage(qry);
+			page = vendorService.findVendorPage(qry);
 			return "list";
 		}
 		/**
 		 * 新增
 		 **/
-		@RequiresPermissions(value = "wh:trust:edit",requiresUser=true)
+		@RequiresPermissions(value = "wh:vendor:edit",requiresUser=true)
 		public String toAdd() throws Exception{
 			AdminUserInfo userInfo = super.getUserInfo();
-			entity = new TbWhTrust();
+			entity = new TbWhVendor();
 			super.event="ADD";
 			super.title="新增";
 			return "edit";
@@ -64,10 +64,10 @@ public class TrustAction extends BaseAction {
 		/**
 		 * 修改
 		 **/
-		@RequiresPermissions(value = "wh:trust:edit",requiresUser=true)
+		@RequiresPermissions(value = "wh:vendor:edit",requiresUser=true)
 		public String toEdit() throws Exception{
 			AdminUserInfo userInfo = super.getUserInfo();
-			entity = trustService.get(TbWhTrust.class,entity.getTrustId());
+			entity = vendorService.get(TbWhVendor.class,entity.getVendorId());
 			super.event="EDIT";
 			super.title="修改";
 			return "edit";
@@ -75,25 +75,25 @@ public class TrustAction extends BaseAction {
 		/**
 		 * 修改动作
 		 **/
-		@RequiresPermissions(value = "wh:trust:edit",requiresUser=true)
+		@RequiresPermissions(value = "wh:vendor:edit",requiresUser=true)
 		public String edit() throws Exception{
 			AdminUserInfo userInfo = super.getUserInfo();
 			if("ADD".equals(super.event)){
 				//新增操作
-				entity.setTrustId(null);				
+				entity.setVendorId(null);				
 				entity.setDataStatus(Constants.YES);
 				entity.setCreateUser(userInfo.getUserId());
 				entity.setCreateDate(new Date());
-				trustService.saveTrust(entity);
+				vendorService.saveVendor(entity);
 				super.addAttribute("qry.orderCol", "createDate");
 				super.addAttribute("qry.orderType", "0");
-				super.saveMessage("委托货主新增成功");
+				super.saveMessage("供应商新增成功");
 			}else if("EDIT".equals(super.event)){
 				//修改操作
-				TbWhTrust db = trustService.get(TbWhTrust.class,entity.getTrustId());
+				TbWhVendor db = vendorService.get(TbWhVendor.class,entity.getVendorId());
 				
-				db.setTrustCode(entity.getTrustCode());
-				db.setTrustName(entity.getTrustName());
+				db.setVendorCode(entity.getVendorCode());
+				db.setVendorName(entity.getVendorName());
 				db.setShortName(entity.getShortName());
 				db.setLinker(entity.getLinker());
 				db.setLinkerTel(entity.getLinkerTel());
@@ -105,22 +105,22 @@ public class TrustAction extends BaseAction {
 				db.setUpdateUser(userInfo.getUserId());
 				db.setUpdateDate(new Date());
 				
-				trustService.saveTrust(db);
-				super.saveMessage("委托货主修改保存成功");
+				vendorService.saveVendor(db);
+				super.saveMessage("供应商修改保存成功");
 				super.addAttribute("qryHex", super.qryHex);
 			}
-			super.redirectUrl = "/warehouse/trust_list.action";
+			super.redirectUrl = "/warehouse/vendor_list.action";
 			return super.GLOBAL_SUCCESS;
 		}
 		/**
 		 * 删除
 		 **/
-		@RequiresPermissions(value = "wh:trust:edit",requiresUser=true)
+		@RequiresPermissions(value = "wh:vendor:edit",requiresUser=true)
 		public String delete() throws Exception{			
 			AdminUserInfo userInfo = super.getUserInfo();
-			entity = trustService.get(TbWhTrust.class,entity.getTrustId());
+			entity = vendorService.get(TbWhVendor.class,entity.getVendorId());
 			if(entity.isCanDelete()){
-				this.trustService.deleteTrust(entity);
+				this.vendorService.deleteVendor(entity);
 				super.renderJsonSuccess("删除成功!");
 			}else{
 				super.renderJsonError("该记录已被删除!");
@@ -131,11 +131,11 @@ public class TrustAction extends BaseAction {
 		/**
 		 * 修改
 		 **/
-		@RequiresPermissions(value = "wh:trust:view",requiresUser=true)
+		@RequiresPermissions(value = "wh:vendor:view",requiresUser=true)
 		public String toView() throws Exception{
 			AdminUserInfo userInfo = super.getUserInfo();
-			entity = trustService.get(TbWhTrust.class,entity.getTrustId());
-			super.title="委托货主详细信息";
+			entity = vendorService.get(TbWhVendor.class,entity.getVendorId());
+			super.title="供应商详细信息";
 			return "view";
 		}
 		
@@ -145,23 +145,23 @@ public class TrustAction extends BaseAction {
 		 */
 		public String checkUnique()throws Exception{
 			AdminUserInfo userInfo = super.getUserInfo();
-			boolean isCorrect = trustService.isUnique(entity.getTrustId());
+			boolean isCorrect = vendorService.isUnique(entity.getVendorId());
 			super.rendText(String.valueOf(isCorrect));
 			return null;
 		}
 		
-		public TrustQry getQry(){
+		public VendorQry getQry(){
 			return this.qry;
 		}
-		public void setQry(TrustQry qry){
+		public void setQry(VendorQry qry){
 			this.qry = qry;
 		}
 		
-		public TrustService getTrustService(){
-			return this.trustService;
+		public VendorService getVendorService(){
+			return this.vendorService;
 		}
-		public void setTrustService(TrustService trustService){
-			this.trustService = trustService;
+		public void setVendorService(VendorService vendorService){
+			this.vendorService = vendorService;
 		}
 		public Page getPage() {
 			return this.page;
@@ -169,10 +169,10 @@ public class TrustAction extends BaseAction {
 		public void setPage(Page page) {
 			this.page = page;
 		}
-		public TbWhTrust getEntity(){
+		public TbWhVendor getEntity(){
 			return entity;
 		}
-		public void setEntity(TbWhTrust entity){
+		public void setEntity(TbWhVendor entity){
 			this.entity = entity;
 		}
 }

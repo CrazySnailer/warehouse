@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.calf.framework.warehouse.entity.TbWhVendor" table="tb_wh_vendor">
+    
+        <id name="vendorId" type="java.lang.Long">
+            <column name="VENDOR_ID" precision="12" scale="0" not-null="true"/>
+            <generator class="sequence">
+                <param name="sequence">SEQ_WH_VENDOR</param>
+            </generator>
+      	 </id>
+		
+				 
+		<property name="vendorCode" type="java.lang.String">
+            <column name="VENDOR_CODE" length="20" not-null="true"/>
+        </property>
+		
+				 
+		<property name="vendorName" type="java.lang.String">
+            <column name="VENDOR_NAME" length="200" not-null="true"/>
+        </property>
+		
+				 
+		<property name="shortName" type="java.lang.String">
+            <column name="SHORT_NAME" length="50" not-null="true"/>
+        </property>
+		
+				 
+		<property name="linker" type="java.lang.String">
+            <column name="LINKER" length="30"/>
+        </property>
+		
+				 
+		<property name="linkerTel" type="java.lang.String">
+            <column name="LINKER_TEL" length="50"/>
+        </property>
+		
+				 
+		<property name="address" type="java.lang.String">
+            <column name="ADDRESS" length="150"/>
+        </property>
+		
+				 
+		<property name="email" type="java.lang.String">
+            <column name="EMAIL" length="50"/>
+        </property>
+		
+				 
+		<property name="postcode" type="java.lang.String">
+            <column name="POSTCODE" length="10"/>
+        </property>
+		
+				 
+		<property name="remark" type="java.lang.String">
+            <column name="REMARK" length="300"/>
+        </property>
+		
+				 
+		<property name="dataStatus" type="java.lang.String">
+            <column name="DATA_STATUS" length="2" not-null="true"/>
+        </property>
+		
+				 
+       <property name="createUser" type="java.lang.Long">
+            <column name="CREATE_USER" precision="12" scale="0" not-null="true"/>
+        </property>
+		
+				 
+		<property name="createDate" type="java.util.Date">            
+            <column name="CREATE_DATE" length="7" not-null="true"/>
+        </property>
+		
+				 
+       <property name="updateUser" type="java.lang.Long">
+            <column name="UPDATE_USER" precision="12" scale="0"/>
+        </property>
+		
+				 
+		<property name="updateDate" type="java.util.Date">            
+            <column name="UPDATE_DATE" length="7"/>
+        </property>
+    </class>
+</hibernate-mapping>
