@@ -23,19 +23,26 @@ public interface MenuService extends BaseService {
 
 	/**
 	 * 修改
+	 * @param refreshTreeNo true 证明需要更新排序
 	 **/
-	public String update(TbSysMenu entity);
-
+	public String update(TbSysMenu entity,boolean refreshTreeNo);
+	/**
+	 * 批量保存
+	 * @return
+	 */
+	public String saveList(TbSysMenu[] entitys);
 	/**
 	 * 删除
 	 */
 	public String delete(TbSysMenu entity);
-
 	/**
-	 * 查找分页信息
+	 * 重建treeno编码
 	 */
-	public Page findMenuPage(MenuQry qry);
-	
+	public String saveRebuild(TbSysMenu entity);
+	/**
+	 * 根据上级查找子菜单
+	 */
+	public List findMenuListByParent(Long parentId);	
 	/**
 	 * 查找菜单树形结构
 	 * @return

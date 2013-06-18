@@ -13,42 +13,42 @@
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="editTable">
 	<tr>
-		<th colspan="4" class="left">${title}</th>
+		<th colspan="2" class="left">${title}</th>
 	</tr>
 	<tr>
-		<td class="right" style="width:15%;">菜单ID</td>
-		<td style="width:35%;">${entity.menuId}</td>
+		<td class="right" style="width:20%;">菜单ID</td>
+		<td style="width:80%;">${entity.menuId}</td>
 	</tr>
 	<tr>
-		<td class="right" style="width:15%;">上级菜单</td>
-		<td style="width:35%;">${entity.menuId}</td>
+		<td class="right" style="width:20%;">上级菜单</td>
+		<td style="width:80%;">${entity.menuId}</td>
 	</tr>
 	<tr>
-		<td class="right" style="width:15%;">菜单名称</td>
-		<td style="width:35%;">${entity.name}</td>
+		<td class="right" style="width:20%;">菜单名称</td>
+		<td style="width:80%;">${entity.name}</td>
 	</tr>
 	<tr>
-		<td class="right" style="width:15%;">菜单URL</td>
-		<td style="width:35%;">${entity.url}</td>
+		<td class="right" style="width:20%;">菜单URL</td>
+		<td style="width:80%;">${entity.url}</td>
 	</tr>
 	<tr>
-		<td class="right" style="width:15%;">唯一标识值</td>
-		<td style="width:35%;">${entity.idVal}</td>
+		<td class="right" style="width:20%;">唯一标识值</td>
+		<td style="width:80%;">${entity.idVal}</td>
 	</tr>
 	<tr>
-		<td class="right" style="width:15%;">是否叶子</td>
-		<td style="width:35%;">${entity.isLeafStr}</td>
+		<td class="right" style="width:20%;">是否叶子</td>
+		<td style="width:80%;">${entity.isLeafStr}</td>
 	</tr>
 	<tr>
-		<td class="right" style="width:15%;">排序号</td>
-		<td style="width:35%;">${entity.orderNum}</td>
+		<td class="right" style="width:20%;">排序号</td>
+		<td style="width:80%;">${entity.orderNum}</td>
 	</tr>
 	<tr>
-		<td class="right" style="width:15%;">是否需要购买</td>
-		<td style="width:35%;">${entity.needBuyStr}</td>
+		<td class="right" style="width:20%;">是否需要购买</td>
+		<td style="width:80%;">${entity.needBuyStr}</td>
 	</tr>
 	<tr>
-	<th class="center" colspan="2"><input type="button" class="buttonInput" value="返 回" onclick="history.go(-1)"/></th>
+	<th class="center" colspan="2"><input type="button" class="btn1" value="关 闭" onclick="javascript:parent.$.fn.colorbox.close();"/></th>
 	</tr>
 </table>
 </body>

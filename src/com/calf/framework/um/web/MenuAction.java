@@ -4,19 +4,21 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Assert;
 
 import com.calf.framework.um.entity.TbSysMenu;
 import com.calf.framework.um.qry.MenuQry;
 import com.calf.framework.um.services.MenuService;
-import com.calf.framework.util.ObjectUtils;
 import com.calf.framework.vo.AdminUserInfo;
 import com.calf.framework.vo.Page;
 import com.calf.framework.web.BaseAction;
 import com.calf.framework.web.util.RequiresPermissions;
 
 public class MenuAction extends BaseAction {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6669191927468852093L;
 	/**
 	 * 
 	 */
@@ -42,6 +44,7 @@ public class MenuAction extends BaseAction {
 	 */
 	TbSysMenu entity;
 	
+	
 	@RequiresPermissions(value = "um:menu:view",requiresUser=true)
 	public String index()throws Exception {
 		AdminUserInfo userInfo = super.getUserInfo();
@@ -51,25 +54,21 @@ public class MenuAction extends BaseAction {
 	@RequiresPermissions(value = "um:menu:view",requiresUser=true)
 	public String tree()throws Exception {
 		AdminUserInfo userInfo = super.getUserInfo();
-		
 		if (qry == null) {
 			qry = new MenuQry();
 		}
 		qry.setUserInfo(userInfo);
-		
 		list = this.menuService.findMenuTree(qry);
 		return "tree";
 	}
 	
 	@RequiresPermissions(value = "um:menu:view",requiresUser=true)
 	public String select()throws Exception {
-		AdminUserInfo userInfo = super.getUserInfo();
-		
+		AdminUserInfo userInfo = super.getUserInfo();		
 		if (qry == null) {
 			qry = new MenuQry();
 		}
-		qry.setUserInfo(userInfo);
-		
+		qry.setUserInfo(userInfo);		
 		list = this.menuService.findMenuTree(qry);
 		return "select";
 	}
@@ -80,14 +79,8 @@ public class MenuAction extends BaseAction {
 	@RequiresPermissions(value = "um:menu:view",requiresUser=true)
 	public String list() throws Exception {
 		AdminUserInfo userInfo = super.getUserInfo();
-		if (StringUtils.isNotBlank(super.qryHex)) {
-			qry = (MenuQry) ObjectUtils.getObjectFromHex(qryHex);
-		}
-		if (qry == null) {
-			qry = new MenuQry();
-		}
-		qry.setUserInfo(userInfo);
-		page = menuService.findMenuPage(qry);
+		Assert.notNull(entity.getMenuId());
+		list = menuService.findMenuListByParent(entity.getMenuId());
 		return "list";
 	}
 
@@ -131,7 +124,7 @@ public class MenuAction extends BaseAction {
 			entity.setCreateDate(new Date());
 			entity.setNeedBuy("0");
 			menuService.add(entity);
-			super.saveMessage("菜单管理新增成功");
+			super.saveMessage("菜单新增成功");
 			super.addAttribute("refresh", "true");
 			super.redirectUrl = "/admin/um/menu_toEdit.action?entity.menuId="+entity.getMenuId();
 		} else if ("EDIT".equals(super.event)) {
@@ -142,22 +135,20 @@ public class MenuAction extends BaseAction {
 			db.setName(entity.getName());
 			db.setUrl(entity.getUrl());
 			db.setIdVal(entity.getIdVal());
-			db.setIsLeaf(entity.getIsLeaf());
-			db.setOrderNum(entity.getOrderNum());
+			db.setOrderNum(entity.getOrderNum());			
 			db.setMenuType(entity.getMenuType());
-			
 			db.setUpdateUser(userInfo.getUserId());
 			db.setUpdateDate(new Date());
 
-			menuService.update(db);
-			super.saveMessage("菜单管理修改成功");
+			menuService.update(db,entity.getOrderNum().longValue()!=db.getOrderNum().longValue());
+			super.saveMessage("菜单修改成功");
 			super.addAttribute("refresh", "true");
-			super.redirectUrl = "/admin/um/menu_toEdit.action?entity.menuId="+entity.getMenuId();
+			super.redirectUrl = "/admin/um/menu_list.action?entity.menuId="+entity.getParentId();
 		}
 		super.addAttribute("refresh", "true");
 		return super.GLOBAL_SUCCESS;
 	}
-
+	
 	/**
 	 * 删除
 	 **/
@@ -168,8 +159,8 @@ public class MenuAction extends BaseAction {
 		Long parentId = entity.getParent().getMenuId();
 		String result = this.menuService.delete(entity);
 		if("OK".equals(result)){
-			super.saveMessage("菜单管理删除成功");
-			super.redirectUrl = "/admin/um/menu_toEdit.action?entity.menuId="+parentId;
+			super.saveMessage("菜单删除成功");
+			super.redirectUrl = "/admin/um/menu_list.action?entity.menuId="+parentId;
 			super.addAttribute("refresh", "true");
 			return super.GLOBAL_SUCCESS;
 		}else if("ERR01".equals(result)){
@@ -188,10 +179,23 @@ public class MenuAction extends BaseAction {
 	public String toView() throws Exception {
 		AdminUserInfo userInfo = super.getUserInfo();
 		entity = menuService.get(entity.getMenuId());
-		super.title = "菜单管理详细信息";
+		super.title = "菜单详细信息";
 		return "view";
-	}
+	}	
 	
+	/**
+	 * 强制重建treeNo
+	 **/
+	@RequiresPermissions(value = "um:menu:edit",requiresUser=true)
+	public String forceBuild() throws Exception {
+		AdminUserInfo userInfo = super.getUserInfo();
+		entity = menuService.get(entity.getMenuId());
+		menuService.saveRebuild(entity);
+		super.saveMessage("数据重建成功");
+		super.redirectUrl = "/admin/um/menu_toEdit.action?entity.menuId="+entity.getMenuId();
+		super.addAttribute("refresh", "true");
+		return super.GLOBAL_SUCCESS;
+	}
 	
 	@RequiresPermissions(value = "um:menu:view",requiresUser=true)
 	public String chkTree()throws Exception {
@@ -277,5 +281,4 @@ public class MenuAction extends BaseAction {
 	public void setChkMenu(List chkMenu) {
 		this.chkMenu = chkMenu;
 	}
-	
 }

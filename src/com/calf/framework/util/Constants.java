@@ -46,7 +46,7 @@ public class Constants {
 	/**
 	 * 
 	 */
-	public static final String PROJECT_NAME = "绿蛙仓储系统";
+	public static final String PROJECT_NAME = "DEMO system";
 	public static String VERSION = "v1.0.2596";
 	
 	/**

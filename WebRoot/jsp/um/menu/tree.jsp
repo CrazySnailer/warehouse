@@ -42,7 +42,7 @@
 		var node = treeObj.getNodeByParam("id", ${param.focus}, null);
 		treeObj.selectNode(node);
 		if(node.isParent){
-			treeObj.expandNode(node, true, true, true);
+			treeObj.expandNode(node, true, false, true);
 		}
 		</c:if>
 	});
@@ -51,15 +51,21 @@
 </head>
 <body>
 
-<form id="editForm" name="editForm" method="post" target="rightMenuTree" action="<%=path %>/admin/um/menu_toEdit.action">
+<form id="editForm" name="editForm" method="get" target="rightMenuTree" action="<%=path %>/admin/um/menu_list.action">
 	<input type="hidden" name="entity.menuId" id="edit_menuId" value=""/>
 </form>
 
-<div class="box">
-	<div class="box-header">菜单管理</div>
-	<div class="box-content">
-		<ul id="treeDemo" class="ztree"></ul>
-	</div>
+<div class="div_tab_header_box">
+    <div class="div_tab_header_box_1">
+        <div class="corner-1-report_nav"></div>
+        <div class="corner-2-report_nav"></div>
+        
+        <div class="box-header">菜单管理</div>
+        <div class="box-content">
+			<ul id="treeDemo" class="ztree"></ul>
+		</div>
+    </div>
 </div>
+		
 </body>   
  </html>

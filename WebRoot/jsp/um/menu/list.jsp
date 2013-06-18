@@ -9,6 +9,7 @@
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
 <link href="<%=path%>/res/css/base.css" rel="stylesheet" type="text/css"/>
+<link href="<%=path%>/res/css/colorbox.css" rel="stylesheet" type="text/css"/>
 <%@ include file="/jsp/include/basejs.jsp" %>
 <script type="text/javascript">
 	function gotoEdit(menuId){
@@ -16,30 +17,48 @@
 		$('#editForm').submit();
 	}
 	function gotoDelete(menuId){
-		jConfirm('确认删除该菜单管理信息?', '确认删除', function(cresult) {
+		jConfirm('删除该数据将不可恢复，确认删除?', '确认删除', function(cresult) {
 			if(cresult){
-				$.ajax({
-					url: '<%=path %>/admin/um/menu_delete.action',
-					data: 'entity.menuId='+menuId,
-					dataType: "json",
-					success: function(data) {
-						if (data.status == "success") {
-							 $.gotoPage(${page.pageNo});
-						}else{
-							jAlert('删除失败','提示信息');
-						}
-					}
-				});
+				$.launchPage('<%=path %>/admin/um/menu_delete.action?entity.menuId='+menuId+'&data='+Math.random());
 			}
 		});	
 	}
 	
+	function gotoView(menuId){
+		$.colorbox({
+			href:'<%=path %>/admin/um/menu_toView.action?entity.menuId='+menuId+'&data='+Math.random(),
+			iframe:true,
+			title: '查看菜单详情',
+			width:"80%", 
+			height:"90%"
+		});
+	}
+	
 	$().ready( function() {	
-		$('#pageSize').val('${page.pageSize}');
+		<c:if test="${param.refresh=='true'}">
+		var mf = window.parent.window.document.getElementById("leftMenuTree");
+		mf.src="<%=path%>/admin/um/menu_tree.action?focus=${entity.menuId}&data="+Math.random();
+		</c:if>
 	});
 </script>
 </head>
 <body>
+
+<div class="ajaxtabdiv">
+	<div class="div_tab_header">
+	    <div class="div_tab_header_1">
+	        <div class="corner-1-report_nav"></div>
+	        <div class="corner-2-report_nav"></div>
+	        <ul class="rptMenu ajaxtabs">		            
+	            <li><a href="#tab_1">列表</a></li>
+	            <shiro:hasPermission name="um:menu:edit"><li><a href="<%=path %>/admin/um/menu_toAdd.action?entity.parentId=${entity.menuId}">新增下级</a></li></shiro:hasPermission>
+	        </ul>
+	    </div>
+	</div><!--div_tab_header-->
+	
+	<div class="div_tab_content_qry">
+            <div id="tab_1" class="tab_content">
+            
 <div id="querytip" class="qrytip">loading....</div>
 
 <form id="editForm" name="editForm" method="post" action="<%=path %>/admin/um/menu_toEdit.action">
@@ -47,77 +66,38 @@
 	<input type="hidden" name="qryHex" value="${qry.qryHex}"/>
 </form>
 
-<form id="listForm" name="listForm" method="post"  action="<%=path %>/admin/um/menu_list.action">
-	<input type="hidden" name="qryit" value="1"/>
-	<table border="0" cellspacing="0" cellpadding="0" class="qryTable">
-		<tr>
-			<th class="left" colspan="2">首页-&gt;菜单管理查询</th>		
-		</tr>		
-		<tr>			
-			<td class="right">每页显示</td>
-			<td>
-			<%=Constants.PAGE_STR_RPT%>
-			<input type="submit" id="searchButton" class="buttonInput" value="查 询"/>			
-			<input type="button" class="buttonInput" id="add_btn" value="新 增" onclick="$.launchPage('<%=path %>/admin/um/menu_toAdd.action')" />
-			</td>
-		</tr>	
-	</table>
-	
-	
-		<c:choose>
-		<c:when test="${page.pageAmount==0 && param.qryit == '1'}">
-			<div class="nodatafound">
-				没有查询到指定数据
-			</div>
-		</c:when>
-		<c:otherwise>		
+<form id="listForm" name="listForm" method="post"  action="<%=path %>/admin/um/menu_saveList.action">
+		<input type="hidden" name="entity.menuId" id="list_menuId" value="${entity.menuId}"/>
 		<table border="0" cellspacing="0" cellpadding="0" class="listTable">
 			<tr>
-				<th>上级菜单</th>
 				<th>菜单名称</th>
 				<th>菜单URL</th>
 				<th>唯一标识值</th>
-				<th>是否叶子</th>
 				<th>排序号</th>
-				<th>是否需要购买</th>
 				<th>操作</th>
 			</tr>
-			<c:forEach items="${page.results}" var="b">
+			<c:forEach items="${list}" var="b" varStatus="i">
 			<tr>
-				<td class="center">${b.menuId}</td>
 				<td class="center">${b.name}</td>
 				<td class="center">${b.url}</td>
 				<td class="center">${b.idVal}</td>
-				<td class="center">${b.isLeafStr}</td>
 				<td class="center">${b.orderNum}</td>
-				<td class="center">${b.needBuyStr}</td>
 				<td class="center">
-				<a href="#none" class="ico ico-edit" title="修改" onclick="gotoEdit('${b.menuId}')"/>&nbsp;
-				<a href="#none" class="ico ico-delete" title="删除" onclick="gotoDelete('${b.menuId}')" />&nbsp;
-				<a href="<%=path %>/admin/um/menu_toView.action?entity.menuId=${b.menuId}" class="ico ico-view" title="查看"/>&nbsp;
+				
+				<shiro:hasPermission name="um:menu:edit">
+				<c:if test="${b.menuId!=1}">
+				<a href="#none" title="修改" onclick="gotoEdit('${b.menuId}')">修改</a>
+				<a href="#none" title="删除" onclick="gotoDelete('${b.menuId}')">删除</a>
+				</c:if>
+				</shiro:hasPermission>
+				<a href="#none" title="查看" onclick="gotoView('${b.menuId}')">查看</a>				
 				</td>
 			</tr>
 			</c:forEach>
 		</table>
-		
-		<div class="pagerBar">		
-			<script type="text/javascript">
-			$().ready( function() {			
-				$("#pager").pager({
-					pagenumber: ${page.pageNo},
-					pagecount: ${page.pageAmount},
-					pagesize:${page.pageSize},
-					pagerecordSize: ${page.recordSize},
-					buttonClickCallback: $.gotoPage
-				});
-			});
-			</script>
-			<span id="pager"></span>
-			<input type="hidden" name="qry.pageNo" id="pageNo" value="${page.pageNo}" />
-		</div>
-		</c:otherwise>
-		</c:choose>
 </form>
-
+</div><!--tab_content-->
+  	</div><!--div_tab_content_qry-->
+</div><!--ajaxtabdiv-->
 </body>
 </html>

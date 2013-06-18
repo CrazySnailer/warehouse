@@ -22,14 +22,12 @@ import com.calf.framework.vo.Page;
 public class MenuServiceImpl extends BaseServiceImpl implements MenuService {
 
 	/**
-	 * 查找分页信息
+	 * 根据上级查找子菜单
 	 */
-	public Page findMenuPage(MenuQry qry) {
-		/*
-		 * return hibernateDao.pagedQuery("page_select", qry, qry.getPageNo(),
-		 * qry.getPageSize());
-		 */
-		return null;
+	public List findMenuListByParent(Long parentId) {
+		List list = super.hibernateDao.find("from TbSysMenu t where t.parent.menuId = ? order by orderNum asc",parentId);
+		list.add(0, super.get(TbSysMenu.class, parentId));
+		return list;
 	}
 
 	/**
@@ -37,7 +35,6 @@ public class MenuServiceImpl extends BaseServiceImpl implements MenuService {
 	 * 
 	 * @return
 	 */
-	@Override
 	public List findMenuTree(MenuQry qry) {
 		Criteria criteria = super.hibernateDao.createCriteria(TbSysMenu.class);
 		criteria.add(Restrictions.eq("dataStatus", Constants.YES));
@@ -63,14 +60,31 @@ public class MenuServiceImpl extends BaseServiceImpl implements MenuService {
 		return null;
 	}
 
-	public String update(TbSysMenu entity) {
+	public String update(TbSysMenu entity,boolean refreshTreeNo) {
 		super.save(entity);		
+		//判断下面是否有节点
+		int cnt = super.hibernateDao.count("select count(*) from TbSysMenu t where t.parent.menuId = ? and t.dataStatus = '1' ", entity.getMenuId());
+		entity.setIsLeaf(cnt==0?Constants.YES:Constants.NO);
 		super.hibernateDao.flush();
-		// 执行生成TREE_NO存储过程
-		loopMain(entity.getParent().getMenuId());
+		
+		if(refreshTreeNo){
+			// 执行生成TREE_NO存储过程
+			loopMain(entity.getParent().getMenuId());
+		}
+		
 		return null;
 	}
 	
+	public String saveList(TbSysMenu[] entitys) {
+		for(TbSysMenu entity:entitys){
+			TbSysMenu db = (TbSysMenu)super.hibernateDao.get(TbSysMenu.class, entity.getMenuId());
+			boolean refreshTreeNo = db.getOrderNum().longValue()!=entity.getOrderNum().longValue();
+			db.setOrderNum(entity.getOrderNum());
+			update(db, refreshTreeNo);
+		}
+		return null;
+	}
+
 	private void loopMain(Long parentId){
 		TbSysMenu parent = super.hibernateDao.get(TbSysMenu.class,parentId);
 		loopSub(parent.getMenuId(), parent.getTreeNo());
@@ -78,14 +92,13 @@ public class MenuServiceImpl extends BaseServiceImpl implements MenuService {
 	
 	@SuppressWarnings({ "unchecked", "unused" })
 	private void loopSub(Long parentId,String treeNo){
-		List<TbSysMenu> subList = (List<TbSysMenu>)super.hibernateDao.find("from TbSysMenu t where t.parent.menuId = ? and t.dataStatus = '1'",parentId);
+		List<TbSysMenu> subList = (List<TbSysMenu>)super.hibernateDao.find("from TbSysMenu t where t.parent.menuId = ? and t.dataStatus = '1' order by orderNum asc",parentId);
 		for (int i = 0, len = subList.size(); i < len; i++) {
 			String newTreeNo = treeNo+FormateUtil.getInstance().appendZero(i);
-			int cnt = super.hibernateDao.count("select count(*) from TbSysMenu t where t.parent.menuId = ? and t.dataStatus = '1' ", parentId);
 			TbSysMenu next = subList.get(i);
 			next.setTreeNo(newTreeNo);
-			next.setIsLeaf(cnt==0?"1":"0");
-			super.save(next);
+			save(next);
+			loopSub(next.getMenuId(),next.getTreeNo());			
 		}
 	}
 
@@ -103,6 +116,30 @@ public class MenuServiceImpl extends BaseServiceImpl implements MenuService {
 	}
 	
 	/**
+	 * 重建treeno编码
+	 */
+	public String saveRebuild(TbSysMenu entity) {
+		rebuild(entity.getMenuId(),entity.getTreeNo());
+		return null;
+	}
+	
+	@SuppressWarnings({ "unchecked", "unused" })
+	private void rebuild(Long parentId,String treeNo){
+		List<TbSysMenu> subList = (List<TbSysMenu>)super.hibernateDao.find("from TbSysMenu t where t.parent.menuId = ? and t.dataStatus = '1' order by orderNum asc",parentId);
+		for (int i = 0, len = subList.size(); i < len; i++) {
+			String newTreeNo = treeNo+FormateUtil.getInstance().appendZero(i);
+			TbSysMenu next = subList.get(i);
+			next.setTreeNo(newTreeNo);			
+			int cnt = super.hibernateDao.count("select count(*) from TbSysMenu t where t.parent.menuId = ? and t.dataStatus = '1' ", next.getMenuId());
+			next.setIsLeaf(cnt==0?Constants.YES:Constants.NO);
+			super.save(next);
+			if(cnt>0){
+				rebuild(next.getMenuId(),next.getTreeNo());
+			}
+		}
+	}
+
+	/**
 	 * 没有叶子节点可以删除
 	 * @param entity
 	 * @return
@@ -115,7 +152,6 @@ public class MenuServiceImpl extends BaseServiceImpl implements MenuService {
 	/**
 	 * 查找已经被选中的菜单
 	 */
-	@Override
 	public List findChkedMenu(Long roleId) {
 		return super.hibernateDao
 				.find("select m from TbSysRolePriv t join t.menu as m where t.relType = 'R' and t.roleId = ? ",

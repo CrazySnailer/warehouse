@@ -35,10 +35,12 @@
 			});
 		});
 		
-		<c:if test="${param.refresh=='true'}">
-			var mf = window.parent.window.document.getElementById("leftMenuTree");
-			mf.src="<%=path%>/admin/um/menu_tree.action?focus=${entity.menuId}&data="+Math.random();
-		</c:if>
+		$('#btnrebuild').click(function (){
+			document.location.href = "<%=path %>/admin/um/menu_forceBuild.action?entity.menuId=${entity.menuId}";
+		});
+		
+		
+
 		
 		$('#menuType').val('${entity.menuType}');
 	});
@@ -46,22 +48,14 @@
 </head>
 <body>
 
-<div class="ajaxtabdiv">
+<div class="ajaxtabdiv11">
 	<div class="div_tab_header">
 	    <div class="div_tab_header_1">
 	        <div class="corner-1-report_nav"></div>
 	        <div class="corner-2-report_nav"></div>
 	        <ul class="rptMenu ajaxtabs">
-	        	<c:if test="${event=='EDIT'}">
-	            <li><a href="#tab_1">${title}</a></li>
-	            <li><a href="<%=path %>/admin/um/menu_toAdd.action?entity.parentId=${entity.menuId}">新增下级</a></li>
-	            </c:if>
-
-	        	<c:if test="${event=='ADD'}">
-	            <li><a href="#tab_1">${title}</a></li>
-	            </c:if>
-
-	            <li><a href="<%=path %>/admin/param/kind_toAdd.action">调整顺序</a></li>
+	            <li><a href="<%=path %>/admin/um/menu_list.action?entity.menuId=${entity.parentId}">列表</a></li>
+	            <li><a href="#none" class="current">${title}</a></li>
 	        </ul>
 	    </div>
 	</div><!--div_tab_header-->
@@ -77,8 +71,6 @@
 	<input type="hidden" name="entity.menuId" class="formText {required: true,byteRangeLength:[0,12],messages: {required:'请输入菜单ID'}}" id="menuId" value="${entity.menuId}"/>
 	</c:if>
 	<table border="0" cellspacing="0" cellpadding="0" class="editTable">
-		
-		
 		
 		<tr>
 			<td class="right" style="width:25%;"><label class="requiredtext">*</label><label class="lable2">上级菜单</label></td>
@@ -122,14 +114,20 @@
 			<td class="right"><label class="requiredtext">*</label><label class="lable2">排序号</label></td>
 			<td>
 			<input type="text" name="entity.orderNum" class="formTextL {required: true,byteRangeLength:[0,5],messages: {required:'请输入排序号'}}" id="orderNum" value="${entity.orderNum}"/>
+			${entity.treeNo}
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<c:if test="${entity.menuId!=1}">
-				<input type="submit" class="btn1" value="保 存"/>
-				<input type="button" class="btn1" value="删除" id="btnDel"/>
-				</c:if>
+				<shiro:hasPermission name="um:menu:edit">
+					<c:if test="${entity.menuId!=1}">
+					<input type="submit" class="btn1" value="保 存"/>
+					</c:if>
+				</shiro:hasPermission>
+			
+				<shiro:hasPermission name="sys:admin:oper">
+				<input type="button" class="btn1" value="重建排序" id="btnrebuild"/>
+				</shiro:hasPermission>
 				<!--<input type="button" class="buttonInput" value="批量修改" id="btnBatchEdit"/>-->
 				<span id="savetip" class="ajaxtip">数据保存中，请稍候……</span>
 			</td>
@@ -138,12 +136,8 @@
 	</table>	
 </form>
 
-			</div>
-            <div id="tab_2" class="tab_content">
-            	2
-            
-            </div>
-  	</div><!--div_tab_content-->
+			</div><!--div_tab_content-->            
+  	</div><!--div_tab_content_qry-->
 </div><!--ajaxtabdiv-->
 
 </body>
