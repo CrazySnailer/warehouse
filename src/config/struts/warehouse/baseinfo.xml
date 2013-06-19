@@ -22,5 +22,15 @@
 			<result name="view">/jsp/warehouse/vendor/view.jsp</result>
 		</action>
 		
+		<action name="productclass_*" class="com.calf.framework.warehouse.web.ProductClassAction" method="{1}">
+	        <interceptor-ref name="baseStack" />
+			<result name="edit">/jsp/warehouse/productclass/edit.jsp</result>
+			<result name="index">/jsp/warehouse/productclass/index.jsp</result>
+			<result name="tree">/jsp/warehouse/productclass/tree.jsp</result>
+			<result name="list">/jsp/warehouse/productclass/list.jsp</result>
+			<result name="view">/jsp/warehouse/productclass/view.jsp</result>
+			<result name="select">/jsp/warehouse/productclass/select.jsp</result>
+		</action>
+		
 	</package>
 </struts>

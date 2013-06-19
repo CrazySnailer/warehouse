@@ -637,6 +637,17 @@ div.nodatafound {
 	background-color: #fffeee;
 }
 
+div.nodatafound2 {
+	line-height: 12px;
+	padding: 6px 20px;
+	margin-top: 3px;
+	color:green;
+	border: 1px solid #ffca88;
+	background-color: #fffeee;
+	line-height:100px;
+	vertical-align:middle;
+}
+
 div.userTip {
 	line-height: 12px;
 	padding: 6px 20px;

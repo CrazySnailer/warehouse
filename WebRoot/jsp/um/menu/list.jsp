@@ -85,10 +85,8 @@
 				<td class="center">
 				
 				<shiro:hasPermission name="um:menu:edit">
-				<c:if test="${b.menuId!=1}">
 				<a href="#none" title="修改" onclick="gotoEdit('${b.menuId}')">修改</a>
 				<a href="#none" title="删除" onclick="gotoDelete('${b.menuId}')">删除</a>
-				</c:if>
 				</shiro:hasPermission>
 				<a href="#none" title="查看" onclick="gotoView('${b.menuId}')">查看</a>				
 				</td>

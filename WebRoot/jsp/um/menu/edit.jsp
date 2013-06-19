@@ -26,22 +26,11 @@
 		$('#btnAdd').click(function (){
 			document.location.href = "<%=path %>/admin/um/menu_toAdd.action?entity.parentId=${entity.menuId}";
 		});
-		
-		$('#btnDel').click(function (){
-			jConfirm('确认删除该菜单?', '确认删除', function(cresult) {
-			if(cresult){
-					document.location.href = "<%=path %>/admin/um/menu_delete.action?entity.menuId=${entity.menuId}";
-				}
-			});
-		});
-		
+		<shiro:hasPermission name="sys:admin:oper">
 		$('#btnrebuild').click(function (){
 			document.location.href = "<%=path %>/admin/um/menu_forceBuild.action?entity.menuId=${entity.menuId}";
 		});
-		
-		
-
-		
+		</shiro:hasPermission>
 		$('#menuType').val('${entity.menuType}');
 	});
 </script>
@@ -54,7 +43,7 @@
 	        <div class="corner-1-report_nav"></div>
 	        <div class="corner-2-report_nav"></div>
 	        <ul class="rptMenu ajaxtabs">
-	            <li><a href="<%=path %>/admin/um/menu_list.action?entity.menuId=${entity.parentId}">列表</a></li>
+	            <li><a href="<%=path %>/admin/um/menu_list.action?entity.menuId=${entity.parent.menuId}">列表</a></li>
 	            <li><a href="#none" class="current">${title}</a></li>
 	        </ul>
 	    </div>

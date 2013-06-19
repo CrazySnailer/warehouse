@@ -13,7 +13,6 @@ import com.calf.framework.um.qry.MenuQry;
 import com.calf.framework.um.services.MenuService;
 import com.calf.framework.util.Constants;
 import com.calf.framework.util.FormateUtil;
-import com.calf.framework.vo.Page;
 
 /**
  * 菜单管理 service 实现
@@ -26,7 +25,6 @@ public class MenuServiceImpl extends BaseServiceImpl implements MenuService {
 	 */
 	public List findMenuListByParent(Long parentId) {
 		List list = super.hibernateDao.find("from TbSysMenu t where t.parent.menuId = ? order by orderNum asc",parentId);
-		list.add(0, super.get(TbSysMenu.class, parentId));
 		return list;
 	}
 

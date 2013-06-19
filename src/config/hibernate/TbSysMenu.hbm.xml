@@ -12,7 +12,7 @@
       	 </id>
 
         <many-to-one name="parent"
-        	class="com.calf.framework.um.entity.TbSysMenu" lazy="false">
+        	class="com.calf.framework.um.entity.TbSysMenu">
         	<column name="P_MENU_ID" precision="12" scale="0" />
         </many-to-one>
 

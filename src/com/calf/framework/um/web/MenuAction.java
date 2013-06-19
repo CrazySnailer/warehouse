@@ -130,7 +130,7 @@ public class MenuAction extends BaseAction {
 		} else if ("EDIT".equals(super.event)) {
 			// 修改操作
 			TbSysMenu db = menuService.get(entity.getMenuId());
-
+			boolean refreshTreeNo = entity.getOrderNum().longValue()!=db.getOrderNum().longValue();
 			db.setParent(this.menuService.get(entity.getParentId()));
 			db.setName(entity.getName());
 			db.setUrl(entity.getUrl());
@@ -140,7 +140,7 @@ public class MenuAction extends BaseAction {
 			db.setUpdateUser(userInfo.getUserId());
 			db.setUpdateDate(new Date());
 
-			menuService.update(db,entity.getOrderNum().longValue()!=db.getOrderNum().longValue());
+			menuService.update(db,refreshTreeNo);
 			super.saveMessage("菜单修改成功");
 			super.addAttribute("refresh", "true");
 			super.redirectUrl = "/admin/um/menu_list.action?entity.menuId="+entity.getParentId();
@@ -186,7 +186,7 @@ public class MenuAction extends BaseAction {
 	/**
 	 * 强制重建treeNo
 	 **/
-	@RequiresPermissions(value = "um:menu:edit",requiresUser=true)
+	@RequiresPermissions(value = "sys:admin:oper",requiresUser=true)
 	public String forceBuild() throws Exception {
 		AdminUserInfo userInfo = super.getUserInfo();
 		entity = menuService.get(entity.getMenuId());
