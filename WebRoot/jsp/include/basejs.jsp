@@ -1,4 +1,4 @@
-<script language="javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script language="javascript" src="<%=path%>/res/js/jquery.js"></script>
 <script language="javascript" src="<%=path%>/res/js/jquery.alerts.js"></script>
 <script language="javascript" src="<%=path%>/res/js/jquery.cookie.js"></script>
 <script language="javascript" src="<%=path%>/res/js/jquery.hotkeys.js"></script>

@@ -32,5 +32,13 @@
 			<result name="select">/jsp/warehouse/productclass/select.jsp</result>
 		</action>
 		
+		<!--仓库-->
+  		<action name="warehouse_*" class="com.calf.framework.warehouse.web.WarehouseAction" method="{1}">
+	        <interceptor-ref name="baseStack" />   
+			<result name="edit">/jsp/warehouse/warehouse/edit.jsp</result>
+			<result name="list">/jsp/warehouse/warehouse/list.jsp</result>
+			<result name="view">/jsp/warehouse/warehouse/view.jsp</result>
+		</action>
+		
 	</package>
 </struts>
