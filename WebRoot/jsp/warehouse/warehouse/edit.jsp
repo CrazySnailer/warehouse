@@ -17,20 +17,13 @@
 </script>
 </head>
 <body>
-<div class="ajaxtabdiv11">
-	<div class="div_tab_header">
-	    <div class="div_tab_header_1">
-	        <div class="corner-1-report_nav"></div>
-	        <div class="corner-2-report_nav"></div>
-	        <ul class="ajaxtabs">		            
-	            <li><a href="<%=path %>/warehouse/warehouse_list.action">仓库列表</a></li>
-	            <li><a href="#none" class="current">${title}</a></li>
-	        </ul>
-	    </div>
-	</div><!--div_tab_header-->
-	
-	<div class="div_tab_content_qry">
-            <div id="tab_1" class="tab_content">
+<div class="div_tab_header_box">
+    <div class="div_tab_header_box_1">
+        <div class="corner-1-report_nav"></div>
+        <div class="corner-2-report_nav"></div>
+        
+        <div class="box-header left">${title}</div>
+        <div class="box-content">
             
 <form id="validateForm" name="validateForm" action="<%=path %>/warehouse/warehouse_edit.action" method="post">
 	<input type="hidden" name="qryHex" value="${qryHex}"/>
@@ -127,8 +120,8 @@
 	</table>	
 </form>
 
-		</div>            
-  	</div><!--div_tab_content-->
-</div><!--ajaxtabdiv-->
+		</div>
+    </div>
+</div>
 </body>
 </html>

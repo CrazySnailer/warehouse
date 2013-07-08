@@ -54,27 +54,29 @@
 	<input type="hidden" name="qryHex" value="${qry.qryHex}"/>
 </form>
 
-<div class="ajaxtabdiv">
-	<div class="div_tab_header">
-	    <div class="div_tab_header_1">
-	        <div class="corner-1-report_nav"></div>
-	        <div class="corner-2-report_nav"></div>
-	        <ul class="rptMenu ajaxtabs">		            
-	            <li><a href="#tab_1">仓库列表</a></li>
-	            <shiro:hasPermission name="wh:warehouse:edit"><li><a href="<%=path %>/warehouse/warehouse_toAdd.action">新增</a></li></shiro:hasPermission>
-	        </ul>
-	    </div>
-	</div><!--div_tab_header-->
-	
-	<div class="div_tab_content_qry">
-            <div id="tab_1" class="tab_content">
+
+<div class="div_tab_header_box">
+    <div class="div_tab_header_box_1">
+        <div class="corner-1-report_nav"></div>
+        <div class="corner-2-report_nav"></div>
+        
+        <div class="box-header left">仓库管理</div>
+        <div class="box-content">
+			
+
+
+	            
+
 <form id="listForm" name="listForm" method="post"  action="<%=path %>/warehouse/warehouse_list.action">
 	<table border="0" cellspacing="0" cellpadding="0" class="qryTable">
 		<tr>
 			<td>
 				<label>编号</label><input type="text" name="qry.whCode" class="formTextS" id="whCode" value="${qry.whCode}" />
 				<label>仓库名称</label><input type="text" name="qry.whName" class="formTextS" id="whName" value="${qry.whName}" />
-			<input type="submit" id="searchButton" class="btn1" value="查 询"/>			
+				<input type="submit" id="searchButton" class="btn1" value="查 询"/>
+				<shiro:hasPermission name="wh:warehouse:edit">
+				<input type="button" class="btn1" id="add_btn" value="新 增" onclick="$.launchPage('<%=path %>/warehouse/warehouse_toAdd.action')" />
+				</shiro:hasPermission>
 			</td>
 		</tr>	
 	</table>
@@ -128,8 +130,11 @@
 		</c:otherwise>
 		</c:choose>
 </form>
-		</div><!--tab_content-->
-  	</div><!--div_tab_content_qry-->
-</div><!--ajaxtabdiv-->
+		
+
+
+		</div>
+    </div>
+</div>
 </body>
 </html>
