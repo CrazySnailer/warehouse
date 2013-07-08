@@ -58,7 +58,7 @@ public class WarehouseAction extends BaseAction {
 			AdminUserInfo userInfo = super.getUserInfo();
 			entity = new TbWhWarehouse();
 			super.event="ADD";
-			super.title="新增";
+			super.title="新增仓库";
 			return "edit";
 		}
 		/**
@@ -69,7 +69,7 @@ public class WarehouseAction extends BaseAction {
 			AdminUserInfo userInfo = super.getUserInfo();
 			entity = warehouseService.get(TbWhWarehouse.class,entity.getWhId());
 			super.event="EDIT";
-			super.title="修改";
+			super.title="修改仓库("+entity.getWhName()+")";
 			return "edit";
 		}
 		/**

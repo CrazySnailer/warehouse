@@ -40,5 +40,16 @@
 			<result name="view">/jsp/warehouse/warehouse/view.jsp</result>
 		</action>
 		
+		<!--仓库结构-->
+  		<action name="struct_*" class="com.calf.framework.warehouse.web.StructAction" method="{1}">
+	        <interceptor-ref name="baseStack" />   
+			<result name="edit">/jsp/warehouse/struct/edit.jsp</result>
+			<result name="index">/jsp/warehouse/struct/index.jsp</result>
+			<result name="tree">/jsp/warehouse/struct/tree.jsp</result>
+			<result name="list">/jsp/warehouse/struct/list.jsp</result>
+			<result name="view">/jsp/warehouse/struct/view.jsp</result>
+			<result name="select">/jsp/warehouse/struct/select.jsp</result>
+		</action>
+		
 	</package>
 </struts>
