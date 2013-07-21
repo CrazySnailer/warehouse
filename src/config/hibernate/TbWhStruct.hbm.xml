@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.calf.framework.warehouse.entity.TbWhStruct" table="tb_wh_struct">
+    
+        <id name="structId" type="java.lang.Long">
+            <column name="STRUCT_ID" precision="12" scale="0" not-null="true"/>
+            <generator class="sequence">
+                <param name="sequence">SEQ_WH_STRUCT</param>
+            </generator>
+      	 </id>
+				 
+		<many-to-one name="parent"
+        	class="com.calf.framework.warehouse.entity.TbWhStruct">
+        	<column name="PARENT_ID" precision="12" scale="0"/>
+        </many-to-one>
+				 
+		<property name="structCode" type="java.lang.String">
+            <column name="STRUCT_CODE" length="20" not-null="true"/>
+        </property>
+		
+				 
+		<property name="structName" type="java.lang.String">
+            <column name="STRUCT_NAME" length="100" not-null="true"/>
+        </property>
+		
+				 
+       <property name="whId" type="java.lang.Long">
+            <column name="WH_ID" precision="12" scale="0" not-null="true"/>
+        </property>
+		
+				 
+		<property name="structType" type="java.lang.String">
+            <column name="STRUCT_TYPE" length="2" not-null="true"/>
+        </property>
+		
+				 
+       <property name="orderNum" type="java.lang.Long">
+            <column name="ORDER_NUM" precision="5" scale="0" not-null="true"/>
+        </property>
+		
+				 
+		<property name="fullName" type="java.lang.String">
+            <column name="FULL_NAME" length="100"/>
+        </property>
+		
+				 
+		<property name="treeNo" type="java.lang.String">
+            <column name="TREE_NO" length="30"/>
+        </property>
+		
+				 
+		<property name="dataStatus" type="java.lang.String">
+            <column name="DATA_STATUS" length="2" not-null="true"/>
+        </property>
+		
+				 
+       <property name="createUser" type="java.lang.Long">
+            <column name="CREATE_USER" precision="12" scale="0" not-null="true"/>
+        </property>
+		
+				 
+		<property name="createDate" type="java.util.Date">            
+            <column name="CREATE_DATE" length="7" not-null="true"/>
+        </property>
+		
+				 
+       <property name="updateUser" type="java.lang.Long">
+            <column name="UPDATE_USER" precision="12" scale="0"/>
+        </property>
+		
+				 
+		<property name="updateDate" type="java.util.Date">            
+            <column name="UPDATE_DATE" length="7"/>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -111,12 +111,13 @@ html[xmlns] .clearfix {
 	border-bottom: 0;
 	background: url(../images/report_nav.png) 0 -5px repeat-x;
 	color: #333;	
-	height: 35px;
+	line-height: 35px;
+	padding-left:10px;
 }
 
 .box-content {
 	border: 1px solid #ccc;
-	padding:  5px;
+	padding: 4px;
 	clear:both;
 }
 
@@ -226,6 +227,11 @@ table.qryTable td,table.editTable td {
 	border: 1px dashed #eee;
 	border-collapse: collapse;
 	padding-bottom: 0px;
+}
+
+table.qryTable td{
+	border:0px;
+	text-align: left;
 }
 
 table.editTable .right {
@@ -480,6 +486,10 @@ input.formText:hover,input.formTextS:hover,input.formTextSS:hover,input.formText
 
 input.formText {
 	width: 180px;
+}
+
+.Wdate2 {
+	background: transparent url(../images/datePicker.png) no-repeat right;
 }
 
 input.formTextDate {
@@ -875,7 +885,7 @@ input.btn2 { float: none;background: url(../images/btn_bg_1.png) 0 -100px; borde
 .div_tab_header_1 { position: relative; height: 35px; float: left; }
 .div_tab_header_2 { position: relative; height: 35px; float: left; margin: 0 22px; }
 .div_tab_header_3 { position: relative; height: 35px; float: right; }
-.div_tab_header_box { text-align: center; line-height: 35px; height: 36px; width:100%;}
+.div_tab_header_box { text-align: center; height: 36px; width:100%;}
 .div_tab_header_box_1 { position: relative; height: 35px; float: left; width:100%;}
 
 

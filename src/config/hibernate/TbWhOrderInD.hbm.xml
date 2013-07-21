@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.calf.framework.warehouse.entity.TbWhOrderInD" table="tb_wh_order_in_d">
+    
+        <id name="orderDId" type="java.lang.Long">
+            <column name="ORDER_D_ID" precision="6" scale="0" not-null="true"/>
+            <generator class="sequence">
+                <param name="sequence">SEQ_WH_ORDER_IN_D</param>
+            </generator>
+      	 </id>
+		
+				 
+       <property name="orderId" type="java.lang.Long">
+            <column name="ORDER_ID" precision="12" scale="0" not-null="true"/>
+        </property>
+		
+				 
+       <property name="productId" type="java.lang.Long">
+            <column name="PRODUCT_ID" precision="12" scale="0" not-null="true"/>
+        </property>
+		
+				 
+       <property name="qty" type="java.lang.Long">
+            <column name="QTY" precision="12" scale="0" not-null="true"/>
+        </property>
+		
+				 
+        <property name="productValue" type="java.lang.Double">
+            <column name="PRODUCT_VALUE" precision="12"/>
+        </property>
+		
+				 
+        <property name="amt" type="java.lang.Double">
+            <column name="AMT" precision="12"/>
+        </property>
+		
+				 
+		<property name="remarks" type="java.lang.String">
+            <column name="REMARKS" length="300"/>
+        </property>
+    </class>
+</hibernate-mapping>

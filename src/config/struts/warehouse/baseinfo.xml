@@ -51,5 +51,13 @@
 			<result name="select">/jsp/warehouse/struct/select.jsp</result>
 		</action>
 		
+		<!--入库订单-->
+  		<action name="orderin_*" class="com.calf.framework.warehouse.web.OrderinAction" method="{1}">
+	        <interceptor-ref name="baseStack" />   
+			<result name="edit">/jsp/warehouse/orderin/edit.jsp</result>
+			<result name="list">/jsp/warehouse/orderin/list.jsp</result>
+			<result name="view">/jsp/warehouse/orderin/view.jsp</result>
+		</action>
+		
 	</package>
 </struts>

@@ -1,5 +1,7 @@
 package com.calf.framework.warehouse.services.impl;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import com.calf.framework.services.impl.BaseServiceImpl;
 import com.calf.framework.util.Constants;
 import com.calf.framework.warehouse.entity.TbWhWarehouse;
 import com.calf.framework.warehouse.qry.WarehouseQry;
+import com.calf.framework.vo.AdminUserInfo;
 import com.calf.framework.vo.Page;
 import com.calf.framework.warehouse.services.WarehouseService;
 
@@ -50,4 +53,9 @@ public class WarehouseServiceImpl extends BaseServiceImpl implements WarehouseSe
 		TbWhWarehouse entity = super.hibernateDao.get(TbWhWarehouse.class, whId);
 		return entity==null;
 	}
+
+	public List<TbWhWarehouse> findAllPhysicsWarehouse(AdminUserInfo userInfo) {
+		return super.hibernateDao.find("from TbWhWarehouse t where t.whType = '1' order by whCode");
+	}
+	
 }

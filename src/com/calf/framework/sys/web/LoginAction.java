@@ -61,27 +61,15 @@ public class LoginAction extends BaseAction {
 			userInfo.setResList(userResList);
 			
 			//初始化数据权限，查询附加信息,主要用于数据权限统一过滤
-			if(userInfo.findResources(Constants.DATA_PRIV_ALL)){
-				userInfo.setDataRanage("1");
-			}else if(userInfo.findResources(Constants.DATA_PRIV_PROV)){
-				userInfo.setDataRanage("2");
-				TbSysDept prov = this.deptService.findParentByDeptLevel(userInfo.getDept(), TbSysDept.DEPT_LEVEL_PROV);
-				userInfo.setProv(prov);
-			}else if(userInfo.findResources(Constants.DATA_PRIV_CITY)){
-				userInfo.setDataRanage("3");
-				TbSysDept city = this.deptService.findParentByDeptLevel(userInfo.getDept(), TbSysDept.DEPT_LEVEL_CITY);
-				userInfo.setCity(city);
-			}else if(userInfo.findResources(Constants.DATA_PRIV_COUNTY)){
-				userInfo.setDataRanage("4");
-				TbSysDept county = this.deptService.findParentByDeptLevel(userInfo.getDept(), TbSysDept.DEPT_LEVEL_COUNTY);
-				userInfo.setCounty(county);
+			/*if(userInfo.findResources(Constants.DATA_PRIV_ALL)){
+				userInfo.setDataRanage("PRIV_ALL");
 			}else if(userInfo.findResources(Constants.DATA_PRIV_SELF_AND_BELOW_DEPT)){
-				userInfo.setDataRanage("5");
+				userInfo.setDataRanage("PRIV_SELF_BELOW_DEPT");
 			}else if(userInfo.findResources(Constants.DATA_PRIV_SELF_DEPT)){
-				userInfo.setDataRanage("6");
+				userInfo.setDataRanage("PRIV_SELF_DEPT");
 			}else if(userInfo.findResources(Constants.DATA_PRIV_SELF)){
-				userInfo.setDataRanage("7");
-			}
+				userInfo.setDataRanage("PRIV_SELF");
+			}*/
 			
 			getRequest().getSession().setAttribute(Constants.ADMIN_SESSION_USER_INFO,userInfo);
 		}else{

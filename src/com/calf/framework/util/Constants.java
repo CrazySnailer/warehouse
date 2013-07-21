@@ -11,19 +11,7 @@ public class Constants {
 	/**
 	 * 数据查看权限--可查看所有数据
 	 */
-	public final static String DATA_PRIV_ALL = "PRIV_ALL";
-	/**
-	 * 数据查看权限--查看全省数据
-	 */
-	public final static String DATA_PRIV_PROV = "PRIV_PROV";
-	/**
-	 * 数据查看权限--查看全市数据
-	 */
-	public final static String DATA_PRIV_CITY = "PRIV_CITY";
-	/**
-	 * 数据查看权限--查看全区/县数据
-	 */
-	public final static String DATA_PRIV_COUNTY = "PRIV_COUNTY";
+	public final static String DATA_PRIV_ALL = "PRIV_ALL";	
 	/**
 	 * 数据查看权限--查看自身及以下机构数据
 	 */

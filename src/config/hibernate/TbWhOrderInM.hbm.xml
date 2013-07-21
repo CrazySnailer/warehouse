@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.calf.framework.warehouse.entity.TbWhOrderInM" table="tb_wh_order_in_m">
+    
+        <id name="orderId" type="java.lang.Long">
+            <column name="ORDER_ID" precision="12" scale="0" not-null="true"/>
+            <generator class="sequence">
+                <param name="sequence">SEQ_WH_ORDER_IN_M</param>
+            </generator>
+      	 </id>
+		
+				 
+		<property name="orderNo" type="java.lang.String">
+            <column name="ORDER_NO" length="20" not-null="true"/>
+        </property>
+		
+				 
+		<property name="orderType" type="java.lang.String">
+            <column name="ORDER_TYPE" length="2" not-null="true"/>
+        </property>
+		
+				 
+		<property name="orderDate" type="java.util.Date">            
+            <column name="ORDER_DATE" length="7" not-null="true"/>
+        </property>
+		
+				 
+       <property name="limitHours" type="java.lang.Long">
+            <column name="LIMIT_HOURS" precision="4" scale="0" not-null="true"/>
+        </property>
+		
+				 
+		<property name="custOrderNo" type="java.lang.String">
+            <column name="CUST_ORDER_NO" length="50"/>
+        </property>
+		
+				 
+       <property name="whId" type="java.lang.Long">
+            <column name="WH_ID" precision="12" scale="0" not-null="true"/>
+        </property>
+		
+				 
+       <property name="vendorId" type="java.lang.Long">
+            <column name="VENDOR_ID" precision="12" scale="0"/>
+        </property>
+		
+				 
+       <property name="trustId" type="java.lang.Long">
+            <column name="TRUST_ID" precision="12" scale="0"/>
+        </property>
+		
+				 
+		<property name="linker" type="java.lang.String">
+            <column name="LINKER" length="50" not-null="true"/>
+        </property>
+		
+				 
+		<property name="linkerTel" type="java.lang.String">
+            <column name="LINKER_TEL" length="30" not-null="true"/>
+        </property>
+		
+				 
+		<property name="remarks" type="java.lang.String">
+            <column name="REMARKS" length="200"/>
+        </property>
+		
+				 
+       <property name="handleId" type="java.lang.Long">
+            <column name="HANDLE_ID" precision="12" scale="0"/>
+        </property>
+		
+				 
+       <property name="handleDept" type="java.lang.Long">
+            <column name="HANDLE_DEPT" precision="12" scale="0"/>
+        </property>
+		
+				 
+		<property name="orderSource" type="java.lang.String">
+            <column name="ORDER_SOURCE" length="4"/>
+        </property>
+		
+				 
+		<property name="auditDate" type="java.util.Date">            
+            <column name="AUDIT_DATE" length="7"/>
+        </property>
+		
+				 
+       <property name="auditId" type="java.lang.Long">
+            <column name="AUDIT_ID" precision="12" scale="0"/>
+        </property>
+		
+				 
+		<property name="dataStatus" type="java.lang.String">
+            <column name="DATA_STATUS" length="2" not-null="true"/>
+        </property>
+		
+				 
+       <property name="createUser" type="java.lang.Long">
+            <column name="CREATE_USER" precision="12" scale="0" not-null="true"/>
+        </property>
+		
+				 
+		<property name="createDate" type="java.util.Date">            
+            <column name="CREATE_DATE" length="7" not-null="true"/>
+        </property>
+		
+				 
+       <property name="updateUser" type="java.lang.Long">
+            <column name="UPDATE_USER" precision="12" scale="0"/>
+        </property>
+		
+				 
+		<property name="updateDate" type="java.util.Date">            
+            <column name="UPDATE_DATE" length="7"/>
+        </property>
+    </class>
+</hibernate-mapping>

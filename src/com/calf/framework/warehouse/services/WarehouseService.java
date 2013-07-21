@@ -5,6 +5,7 @@ import java.util.List;
 import com.calf.framework.services.BaseService;
 import com.calf.framework.warehouse.entity.TbWhWarehouse;
 import com.calf.framework.warehouse.qry.WarehouseQry;
+import com.calf.framework.vo.AdminUserInfo;
 import com.calf.framework.vo.Page;
 
 public interface WarehouseService extends BaseService{
@@ -20,7 +21,10 @@ public interface WarehouseService extends BaseService{
 	 * 查找分页信息
 	 */
 	public Page findWarehousePage(WarehouseQry qry);
-	
+	/**
+	 * 查找所有的物理仓库
+	 */
+	public List<TbWhWarehouse> findAllPhysicsWarehouse(AdminUserInfo userInfo);
 	/**
 	 * 判断编码是否唯一
 	 * @return
