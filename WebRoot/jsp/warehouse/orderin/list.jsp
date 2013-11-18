@@ -44,6 +44,41 @@
 			height:"90%"
 		});
 	}
+	
+	$(document).ready(function(){
+		$('#orderInType').val('${qry.orderInType}');
+		$('#whId').val('${qry.whId}');
+		
+		$('#clearvendor').click(function(){
+	    	$('#vendorId').val('');
+	    	$('#vendorName').val('');
+	    });
+	    $('#cleartrust').click(function(){
+	    	$('#trustId').val('');
+	    	$('#trustName').val('');
+	    });
+	    
+		$('#selectTrust').click(function(){
+	    	$.colorbox({
+				href:'<%=path %>/warehouse/trust_select.action?trustId=trustId&trustName=trustName&data='+Math.random(),
+				iframe:true,
+				width:"80%",
+				height:"90%",
+				title:"选择委托货主"
+			});
+	    });
+	    
+	    $('#selectVendor').click(function(){
+	    	$.colorbox({
+				href:'<%=path %>/warehouse/vendor_select.action?vendorId=vendorId&vendorName=vendorName&data='+Math.random(),
+				iframe:true,
+				width:"80%",
+				height:"90%",
+				title:"选择供应商"
+			});
+	    });
+	    
+	});
 </script>
 </head>
 <body>
@@ -67,20 +102,52 @@
 <form id="listForm" name="listForm" method="post"  action="<%=path %>/warehouse/orderin_list.action">
 	<table border="0" cellspacing="0" cellpadding="0" class="qryTable">
 		<tr>
+			<td><label>仓库</label></td>
 			<td>
-				<label>订单单号</label><input type="text" name="qry.orderNo" class="formTextS" id="orderNo" value="${qry.orderNo}" />
-				<label>订单类型</label><input type="text" name="qry.orderType" class="formTextS" id="orderType" value="${qry.orderType}" />
-				<label>客户单号</label><input type="text" name="qry.custOrderNo" class="formTextS" id="custOrderNo" value="${qry.custOrderNo}" />
-				<label>仓库</label><input type="text" name="qry.whId" class="formTextS" id="whId" value="${qry.whId}" />
-				<label>供应商</label><input type="text" name="qry.vendorId" class="formTextS" id="vendorId" value="${qry.vendorId}" />
-				<label>委托货主</label><input type="text" name="qry.trustId" class="formTextS" id="trustId" value="${qry.trustId}" />
-				<label>联系人</label><input type="text" name="qry.linker" class="formTextS" id="linker" value="${qry.linker}" />
+				<select name="qry.whId" id="whId" class="formSelectS {required: true,messages: {required:'请选择仓库'}}">
+					<option value=""></option>
+					<c:forEach items="${warehouseList}" var="b">
+					<option value="${b.whId}">${b.whName}</option>
+					</c:forEach>
+				</select>
+			</td>
+			<td><label>订单单号</label></td>
+			<td><input type="text" name="qry.orderNo" class="formTextS" id="orderNo" value="${qry.orderNo}" /></td>
+			<td><label>订单类型</label></td>
+			<td colspan="3">
+			<%=CodeNameUtils.getInstance().generateSelect("<select name=\"qry.orderInType\" id=\"orderInType\" class=\"formSelectS\">","","wh_orderin_type")%>
+			</td>
+		</tr>
+		<tr>
+			
+			<td><label>供应商</label></td>
+			<td><input type="hidden" name="qry.vendorId" class="formTextS" id="vendorId" value="${qry.vendorId}" />
+			<input type="text" name="qry.vendorName" class="formTextS ro" readonly="true" id="vendorName" value="${qry.vendorName}"/>
+			<a href="#none" id="selectVendor" class="ico ico-open" title="选择供应商"></a>
+			<a href="#none" id="clearvendor" class="ico ico-eraser" title="清除条件"></a>
+			</td>
+			<td><label>委托货主</label></td>
+			<td><input type="hidden" name="qry.trustId" class="formTextS" id="trustId" value="${qry.trustId}" />
+			<input type="text" name="qry.trustName" class="formTextS ro" readonly="true" id="trustName" value="${qry.trustName}"/>
+			<a href="#none" id="selectTrust" class="ico ico-open" title="选择委托货主"></a>
+			<a href="#none" id="cleartrust" class="ico ico-eraser" title="清除条件"></a>
+			</td>
+			<td><label>联系人</label></td>
+			<td>
+			<input type="text" name="qry.linker" class="formTextS" id="linker" value="${qry.linker}" />
+			</td>
+			<td><label>客户单号</label>
+			<td><input type="text" name="qry.custOrderNo" class="formTextS" id="custOrderNo" value="${qry.custOrderNo}" /></td>
+			</td>
+		</tr>
+		<tr>	
+			<td colspan="8">			
 			<input type="submit" id="searchButton" class="btn1" value="查 询"/>
 			<shiro:hasPermission name="wh:orderin:edit">
 			<input type="button" class="btn1" id="add_btn" value="新 增" onclick="$.launchPage('<%=path %>/warehouse/orderin_toAdd.action')" />
 			</shiro:hasPermission>	
 			</td>
-		</tr>	
+		</tr>
 	</table>
 	
 	
@@ -102,7 +169,7 @@
 				<th>供应商</th>
 				<th>委托货主</th>
 				<th>联系人</th>
-			<th>操作</th>
+				<th>操作</th>
 			</tr>
 			<c:forEach items="${page.results}" var="b">
 			<tr>

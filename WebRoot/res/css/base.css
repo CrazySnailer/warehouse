@@ -242,7 +242,7 @@ table.editTable td.viewheader{
 	font-weight: bold;
 	color: #15428B;
 }
-
+.cursorhand{cursor: pointer;}
 /** http://papermashup.com/demos/css-buttons/*/
 .buttonInput {
 	float: none;

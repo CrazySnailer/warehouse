@@ -31,8 +31,8 @@
 
 	var zNodes =[
 		<c:forEach items="${list}" var="b" varStatus="myVar">
-		<c:if test="${myVar.index == 0}">{ id:${b.structId}, pId:0, name:"${b.name}",treeNo:"${b.treeNo}", open:true,isParent:true}<c:if test="${!myVar.last}">,</c:if></c:if>
-		<c:if test="${myVar.index != 0}">{ id:${b.structId}, pId:${b.parent.structId}, name:"${b.name}",treeNo:"${b.treeNo}"}<c:if test="${!myVar.last}">,</c:if></c:if>
+		<c:if test="${myVar.index == 0}">{ id:${b.structId}, pId:0, name:"${b.structName}",treeNo:"${b.treeNo}", open:true,isParent:true}<c:if test="${!myVar.last}">,</c:if></c:if>
+		<c:if test="${myVar.index != 0}">{ id:${b.structId}, pId:${b.parent.structId}, name:"${b.structName}",treeNo:"${b.treeNo}"}<c:if test="${!myVar.last}">,</c:if></c:if>
 		</c:forEach>
 	];
 

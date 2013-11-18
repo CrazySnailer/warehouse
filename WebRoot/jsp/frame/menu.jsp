@@ -16,9 +16,9 @@
 
 <style type="text/css">
 
-#reportNav { width:168px; float: left; font-size: 18px; line-height: 45px; position: relative; }
+#reportNav { width:168px; float: left; font-size: 14px; line-height: 45px; position: relative; }
 #reportNav ul { border: 1px solid #c2ccd4; border-bottom: none; }
-#reportNav ul li { border-bottom: 1px solid #c2ccd4; text-indent: 20px; background: url(http://my.adsmogo.com/Content/images/report_nav_bg.png) repeat-x; }
+#reportNav ul li { border-bottom: 1px solid #c2ccd4; text-indent: 10px; background: url(http://my.adsmogo.com/Content/images/report_nav_bg.png) repeat-x; }
 #reportNav ul li a { text-decoration: none; color: #333; display: block; }
 #reportNav ul li a:hover { color: #008dac; }
 #reportNav ul li .current, #reportNav ul li .current:hover { background: url(http://my.adsmogo.com/Content/images/report_nav_bg.png) 0 -45px repeat-x; color: #fff; display: block; }
