@@ -30,10 +30,12 @@ public class OrderinQry extends BaseAdminQuery implements Serializable {
 	 * 供应商
 	 **/
 	Long vendorId;
+	String vendorName;
 	/**
 	 * 委托货主
 	 **/
 	Long trustId;
+	String trustName;
 	/**
 	 * 联系人
 	 **/
@@ -93,6 +95,22 @@ public class OrderinQry extends BaseAdminQuery implements Serializable {
 
 	public void setLinker(String linker) {
 		this.linker = linker;
+	}
+
+	public String getVendorName() {
+		return vendorName;
+	}
+
+	public void setVendorName(String vendorName) {
+		this.vendorName = vendorName;
+	}
+
+	public String getTrustName() {
+		return trustName;
+	}
+
+	public void setTrustName(String trustName) {
+		this.trustName = trustName;
 	}
 
 }

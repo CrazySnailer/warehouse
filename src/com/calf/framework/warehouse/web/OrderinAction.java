@@ -56,6 +56,8 @@ public class OrderinAction extends BaseAction {
 			qry.setOrderCol("createDate");
 			qry.setOrderType(Constants.DESC);
 		}
+		
+		this.warehouseList = this.warehouseService.findAllPhysicsWarehouse(userInfo);
 
 		qry.setUserInfo(userInfo);
 		page = orderinService.findOrderinPage(qry);

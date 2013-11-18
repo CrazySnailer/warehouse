@@ -12,6 +12,7 @@
 			<result name="edit">/jsp/warehouse/trust/edit.jsp</result>
 			<result name="list">/jsp/warehouse/trust/list.jsp</result>
 			<result name="view">/jsp/warehouse/trust/view.jsp</result>
+			<result name="select">/jsp/warehouse/trust/select.jsp</result>
 		</action>
 		
 		<!--供应商-->
@@ -20,8 +21,18 @@
 			<result name="edit">/jsp/warehouse/vendor/edit.jsp</result>
 			<result name="list">/jsp/warehouse/vendor/list.jsp</result>
 			<result name="view">/jsp/warehouse/vendor/view.jsp</result>
+			<result name="select">/jsp/warehouse/vendor/select.jsp</result>
 		</action>
 		
+		<!--物流公司-->
+  		<action name="express_*" class="com.calf.framework.warehouse.web.ExpressAction" method="{1}">
+	        <interceptor-ref name="baseStack" />   
+			<result name="edit">/jsp/warehouse/express/edit.jsp</result>
+			<result name="list">/jsp/warehouse/express/list.jsp</result>
+			<result name="view">/jsp/warehouse/express/view.jsp</result>
+		</action>
+		
+		<!-- 商品分类 -->
 		<action name="productclass_*" class="com.calf.framework.warehouse.web.ProductClassAction" method="{1}">
 	        <interceptor-ref name="baseStack" />
 			<result name="edit">/jsp/warehouse/productclass/edit.jsp</result>
@@ -30,6 +41,14 @@
 			<result name="list">/jsp/warehouse/productclass/list.jsp</result>
 			<result name="view">/jsp/warehouse/productclass/view.jsp</result>
 			<result name="select">/jsp/warehouse/productclass/select.jsp</result>
+		</action>
+		
+		<!--商品管理-->
+  		<action name="product_*" class="com.calf.framework.warehouse.web.ProductAction" method="{1}">
+	        <interceptor-ref name="baseStack" />   
+			<result name="edit">/jsp/warehouse/product/edit.jsp</result>
+			<result name="list">/jsp/warehouse/product/list.jsp</result>
+			<result name="view">/jsp/warehouse/product/view.jsp</result>
 		</action>
 		
 		<!--仓库-->
@@ -57,6 +76,22 @@
 			<result name="edit">/jsp/warehouse/orderin/edit.jsp</result>
 			<result name="list">/jsp/warehouse/orderin/list.jsp</result>
 			<result name="view">/jsp/warehouse/orderin/view.jsp</result>
+		</action>
+		
+		<!-- 验货处理 -->
+		<action name="inspection_*" class="com.calf.framework.warehouse.web.InspectionAction" method="{1}">
+	        <interceptor-ref name="baseStack" />   
+			<result name="edit">/jsp/warehouse/inspection/edit.jsp</result>
+			<result name="list">/jsp/warehouse/inspection/list.jsp</result>
+			<result name="view">/jsp/warehouse/inspection/view.jsp</result>
+		</action>
+		
+		<!-- 上架处理 -->
+		<action name="upframe_*" class="com.calf.framework.warehouse.web.UpframeAction" method="{1}">
+	        <interceptor-ref name="baseStack" />   
+			<result name="edit">/jsp/warehouse/upframe/edit.jsp</result>
+			<result name="list">/jsp/warehouse/upframe/list.jsp</result>
+			<result name="view">/jsp/warehouse/upframe/view.jsp</result>
 		</action>
 		
 	</package>

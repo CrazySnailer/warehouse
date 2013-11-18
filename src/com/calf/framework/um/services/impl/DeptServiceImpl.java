@@ -2,6 +2,7 @@ package com.calf.framework.um.services.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
@@ -16,13 +17,13 @@ import com.calf.framework.vo.Page;
 
 @Service("deptService")
 public class DeptServiceImpl extends BaseServiceImpl implements DeptService {
-
 	/**
 	 * 查找分页信息
 	 */
 	public Page findDeptPage(DeptQry qry) {
 		Criteria criteria = super.hibernateDao.createCriteria(TbSysDept.class);
 		criteria.add(Restrictions.eq("dataStatus", Constants.YES));
+				
 		return super.hibernateDao.pagedQuery(criteria, qry.getPageNo(), qry.getPageSize());
 	}
 

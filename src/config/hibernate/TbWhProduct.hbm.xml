@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.calf.framework.warehouse.entity.TbWhProduct" table="tb_wh_product">
+    
+        <id name="productId" type="java.lang.Long">
+            <column name="PRODUCT_ID" precision="12" scale="0" not-null="true"/>
+            <generator class="sequence">
+                <param name="sequence">SEQ_WH_PRODUCT</param>
+            </generator>
+      	 </id>
+		
+				 
+       <property name="classId" type="java.lang.Long">
+            <column name="CLASS_ID" precision="12" scale="0" not-null="true"/>
+        </property>
+		
+				 
+       <property name="deptId" type="java.lang.Long">
+            <column name="DEPT_ID" precision="12" scale="0" not-null="true"/>
+        </property>
+		
+				 
+		<property name="productCode" type="java.lang.String">
+            <column name="PRODUCT_CODE" length="30" not-null="true"/>
+        </property>
+		
+				 
+		<property name="productSku" type="java.lang.String">
+            <column name="PRODUCT_SKU" length="70" not-null="true"/>
+        </property>
+		
+				 
+		<property name="productName" type="java.lang.String">
+            <column name="PRODUCT_NAME" length="200" not-null="true"/>
+        </property>
+		
+				 
+       <property name="trustId" type="java.lang.Long">
+            <column name="TRUST_ID" precision="12" scale="0"/>
+        </property>
+		
+				 
+       <property name="vendorId" type="java.lang.Long">
+            <column name="VENDOR_ID" precision="12" scale="0"/>
+        </property>
+		
+				 
+       <property name="structId" type="java.lang.Long">
+            <column name="STRUCT_ID" precision="12" scale="0"/>
+        </property>
+		
+				 
+        <property name="productCost" type="java.lang.Double">
+            <column name="PRODUCT_COST" precision="12" not-null="true"/>
+        </property>
+		
+				 
+		<property name="brandName" type="java.lang.String">
+            <column name="BRAND_NAME" length="100" not-null="true"/>
+        </property>
+		
+				 
+		<property name="modelNo" type="java.lang.String">
+            <column name="MODEL_NO" length="100" not-null="true"/>
+        </property>
+		
+				 
+		<property name="unitName" type="java.lang.String">
+            <column name="UNIT_NAME" length="10" not-null="true"/>
+        </property>
+		
+				 
+		<property name="bigUnitName" type="java.lang.String">
+            <column name="BIG_UNIT_NAME" length="10"/>
+        </property>
+		
+				 
+       <property name="exchangeNum" type="java.lang.Long">
+            <column name="EXCHANGE_NUM" precision="5" scale="0"/>
+        </property>
+		
+				 
+		<property name="adminType" type="java.lang.String">
+            <column name="ADMIN_TYPE" length="2"/>
+        </property>
+		
+				 
+		<property name="makeLocation" type="java.lang.String">
+            <column name="MAKE_LOCATION" length="200"/>
+        </property>
+		
+				 
+		<property name="makeFactory" type="java.lang.String">
+            <column name="MAKE_FACTORY" length="200"/>
+        </property>
+		
+				 
+		<property name="warrantyDay" type="java.lang.String">
+            <column name="WARRANTY_DAY" length="20"/>
+        </property>
+		
+				 
+        <property name="trustSettlePrice" type="java.lang.Double">
+            <column name="TRUST_SETTLE_PRICE" precision="12"/>
+        </property>
+		
+				 
+        <property name="vendorSettlePrice" type="java.lang.Double">
+            <column name="VENDOR_SETTLE_PRICE" precision="12"/>
+        </property>
+		
+				 
+		<property name="remark" type="java.lang.String">
+            <column name="REMARK" length="200"/>
+        </property>
+		
+				 
+		<property name="dataStatus" type="java.lang.String">
+            <column name="DATA_STATUS" length="2" not-null="true"/>
+        </property>
+		
+				 
+       <property name="createUser" type="java.lang.Long">
+            <column name="CREATE_USER" precision="12" scale="0" not-null="true"/>
+        </property>
+		
+				 
+		<property name="createDate" type="java.util.Date">            
+            <column name="CREATE_DATE" length="7" not-null="true"/>
+        </property>
+		
+				 
+       <property name="updateUser" type="java.lang.Long">
+            <column name="UPDATE_USER" precision="12" scale="0"/>
+        </property>
+		
+				 
+		<property name="updateDate" type="java.util.Date">            
+            <column name="UPDATE_DATE" length="7"/>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -9,7 +9,7 @@ public class TbWhOrderInM implements java.io.Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7210248768007789556L;
+	private static final long serialVersionUID = 7210243768007789556L;
 
 	/**
 	 * 主键 订单ID

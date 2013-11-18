@@ -150,6 +150,34 @@ public class TrustAction extends BaseAction {
 			return null;
 		}
 		
+		/**
+		 * 选择供应商
+		 * @return
+		 * @throws Exception
+		 */
+		@RequiresPermissions(value = "wh:trust:view",requiresUser=true)
+		public String select()throws Exception{
+			AdminUserInfo userInfo = super.getUserInfo();
+			if(StringUtils.isNotBlank(super.qryHex)){
+				qry = (TrustQry)ObjectUtils.getObjectFromHex(qryHex);
+			}
+			if(qry==null){
+				qry = new TrustQry();
+				qry.setOrderCol("createDate");
+				qry.setOrderType(Constants.DESC);
+			}
+			
+			//设置默认排序号
+			if(StringUtils.isBlank(qry.getOrderCol())){
+				qry.setOrderCol("createDate");
+				qry.setOrderType(Constants.DESC);
+			}
+			
+			qry.setUserInfo(userInfo);
+			page = trustService.findTrustPage(qry);
+			return "select";
+		}
+		
 		public TrustQry getQry(){
 			return this.qry;
 		}
