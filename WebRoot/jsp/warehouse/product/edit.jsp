@@ -9,10 +9,56 @@
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
 <link href="<%=path%>/res/css/base.css" rel="stylesheet" type="text/css"/>
+<link href="<%=path%>/res/css/colorbox.css" rel="stylesheet" type="text/css"/>
+
 <%@ include file="/jsp/include/basejs.jsp" %>
 <script type="text/javascript">
 	$(document).ready(function(){
-			$('#productId').val('${entity.productId}');
+		$('#productId').val('${entity.productId}');
+		
+		$('#selectClass').click(function(){
+        	$.colorbox({
+				href:'<%=path %>/warehouse/productclass_select.action?parentId=classId&parentName=className&data='+Math.random(),
+				iframe:true,
+				width:"80%",
+				height:"90%",
+				title:"选择商品分类"
+			});
+        });
+	        
+		$('#selectTrust').click(function(){
+        	$.colorbox({
+				href:'<%=path %>/warehouse/trust_select.action?trustId=trustId&trustName=trustName&data='+Math.random(),
+				iframe:true,
+				width:"80%",
+				height:"90%",
+				title:"选择委托货主"
+			});
+        });
+        
+        $('#selectVendor').click(function(){
+        	$.colorbox({
+				href:'<%=path %>/warehouse/vendor_select.action?vendorId=vendorId&vendorName=vendorName&data='+Math.random(),
+				iframe:true,
+				width:"80%",
+				height:"90%",
+				title:"选择供应商"
+			});
+        });
+        
+        $('#clearClass').click(function(){
+	    	$('#classId').val('');
+	    	$('#className').val('');
+	    });
+	    
+        $('#clearvendor').click(function(){
+	    	$('#vendorId').val('');
+	    	$('#vendorName').val('');
+	    });
+	    $('#cleartrust').click(function(){
+	    	$('#trustId').val('');
+	    	$('#trustName').val('');
+	    });
 	});
 </script>
 </head>
@@ -55,7 +101,10 @@
 		<tr>
 			<td class="right" style="width:20%"><label class="requiredtext">*</label><label class="lable2">所属分类</label></td>
 			<td style="width:80%">
-			<input type="text" name="entity.classId" class="formText {required: true,byteRangeLength:[0,12],messages: {required:'请输入所属分类'}}" id="classId" value="${entity.classId}"/>
+			<input type="text" name="className" readonly="true" class="formText ro {required: true,byteRangeLength:[0,30],messages: {required:'请选择商品分类'}}" id="className" value="${entity.productClass.className}"/>
+			<input type="hidden" name="entity.productClass.classId" class="formText {byteRangeLength:[0,12]}" id="classId" value="${entity.productClass.classId}"/>
+			<a href="#none" id="selectClass" class="ico ico-open" title="选择商品分类"></a>
+			<a href="#none" id="clearClass" class="ico ico-eraser" title="清除"></a>
 			
 			</td>
 		</tr>
@@ -90,21 +139,29 @@
 		<tr>
 			<td class="right" style="width:20%"><label class="lable2">委托货主</label></td>
 			<td style="width:80%">
-			<input type="text" name="entity.trustId" class="formText {byteRangeLength:[0,12]}" id="trustId" value="${entity.trustId}"/>
+			<input type="text" name="trustName" readonly="true" class="formText ro" id="trustName" value="${entity.trust.trustName}"/>
+			<input type="hidden" name="entity.trust.trustId" class="formText {byteRangeLength:[0,12]}" id="trustId" value="${entity.trust.trustId}"/>
+			<a href="#none" id="selectTrust" class="ico ico-open" title="选择委托货主"></a>
+			<a href="#none" id="cleartrust" class="ico ico-eraser" title="清除选择"></a>
 			
 			</td>
 		</tr>
 		<tr>
 			<td class="right" style="width:20%"><label class="lable2">供应商</label></td>
 			<td style="width:80%">
-			<input type="text" name="entity.vendorId" class="formText {byteRangeLength:[0,12]}" id="vendorId" value="${entity.vendorId}"/>
-			
+			<input type="text" name="vendorName" readonly="true" class="formText ro" id="vendorName" value="${entity.vendor.vendorName}"/>
+			<input type="hidden" name="entity.vendor.vendorId" class="formText {byteRangeLength:[0,12]}" id="vendorId" value="${entity.vendor.vendorId}"/>
+			<a href="#none" id="selectVendor" class="ico ico-open" title="选择供应商"></a>
+			<a href="#none" id="clearvendor" class="ico ico-eraser" title="清除选择"></a>
 			</td>
 		</tr>
 		<tr>
 			<td class="right" style="width:20%"><label class="lable2">仓库存放位置</label></td>
 			<td style="width:80%">
-			<input type="text" name="entity.structId" class="formText {byteRangeLength:[0,12]}" id="structId" value="${entity.structId}"/>
+			<input type="text" name="whPlaceName" readonly="true" class="formText ro" id="whPlaceName" value="${entity.whPlace.structName}"/>
+			<input type="hidden" name="entity.whPlace.structId" class="formText {byteRangeLength:[0,12]}" id="structId" value="${entity.whPlace.structId}"/>
+			<a href="#none" id="selectVendor" class="ico ico-open" title="选择存放位置"></a>
+			<a href="#none" id="clearvendor" class="ico ico-eraser" title="清除选择"></a>
 			
 			</td>
 		</tr>

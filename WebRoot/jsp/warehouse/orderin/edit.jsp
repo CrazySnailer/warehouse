@@ -12,7 +12,21 @@
 <link href="<%=path%>/res/css/colorbox.css" rel="stylesheet" type="text/css"/>
 
 <%@ include file="/jsp/include/basejs.jsp" %>
+<script language="javascript" src="<%=path%>/jsp/warehouse/orderin/order.js"></script>
+
 <script type="text/javascript">
+	function refreshDetail(){
+		//进行AJAX刷新
+		$.ajax({
+			url: '<%=path %>/warehouse/orderin_listDetail.action?data='+Math.random(),
+			type: 'post',
+			data: {},
+			dataType:"html",
+			success: function (resp) {
+				$('#prodList tbody').html(resp);
+			}
+		});
+	}
 	$(document).ready(function(){
 			$('#whId').val('${entity.whId}');
 			
@@ -36,6 +50,20 @@
 				});
 	        });
 	        
+	        
+	        $('#add_product').click(function(){
+	        	$.colorbox({
+					href:'<%=path %>/warehouse/orderin_toAddDetail.action?data='+Math.random(),
+					iframe:true,
+					width:"80%",
+					height:"90%",
+					title:"添加订单商品明细",
+					onClosed:function(){
+						refreshDetail();
+					}
+				});
+	        });
+	        
 	        $('#clearvendor').click(function(){
 		    	$('#vendorId').val('');
 		    	$('#vendorName').val('');
@@ -44,7 +72,37 @@
 		    	$('#trustId').val('');
 		    	$('#trustName').val('');
 		    });
+		    
+		    //添加已存在的数据
 	});
+	
+	/**
+	 * 
+	 **/
+	function openEditDialog(idx){
+		$.colorbox({
+			href:'<%=path %>/warehouse/orderin_toEditDetail.action?index='+idx+'&data='+Math.random(),
+			iframe:true,
+			width:"80%",
+			height:"90%",
+			title:"修改订单商品明细",
+			onClosed:function(){
+				refreshDetail();
+			}
+		});
+	}
+	
+	function removeDetail(idx){
+		$.ajax({
+			url: '<%=path %>/warehouse/orderin_deleteDetail.action',
+			type: 'post',
+			data: {'index':idx,'data':Math.random()},
+			dataType:"html",
+			success: function (resp) {
+				refreshDetail();
+			}
+		});
+	}
 </script>
 </head>
 <body>
@@ -123,14 +181,14 @@
 			<input type="text" name="trustName" readonly="true" class="formText ro" id="trustName" value=""/>
 			<input type="hidden" name="entity.trustId" class="formText {byteRangeLength:[0,12]}" id="trustId" value="${entity.trustId}"/>
 			<a href="#none" id="selectTrust" class="ico ico-open" title="选择委托货主"></a>
-			<a href="#none" id="cleartrust" class="ico ico-eraser" title="清除条件"></a>
+			<a href="#none" id="cleartrust" class="ico ico-eraser" title="清除选择"></a>
 			</td>
 			<td class="right" style="width:15%"><label class="lable2">供应商</label></td>
 			<td style="width:35%">
 			<input type="text" name="vendorName" readonly="true" class="formText ro" id="vendorName" value=""/>
 			<input type="hidden" name="entity.vendorId" class="formText {byteRangeLength:[0,12]}" id="vendorId" value="${entity.vendorId}"/>
 			<a href="#none" id="selectVendor" class="ico ico-open" title="选择供应商"></a>
-			<a href="#none" id="clearvendor" class="ico ico-eraser" title="清除条件"></a>
+			<a href="#none" id="clearvendor" class="ico ico-eraser" title="清除选择"></a>
 			</td>
 		</tr>
 		<tr>
@@ -156,49 +214,32 @@
 		
 	</table>
 </form>
-
-<div class="left"><h2>入库商品明细</h2></div>
-
-<div class="blank10"></div><div class="blank10"></div>
-<div class="left ">
-			<label>商品编码或条码</label><input type="text" name="qry.orderNo" class="formTextS" id="orderNo" value="${qry.orderNo}" />
-			<label>数量</label><input type="text" name="qry.orderNo" class="formTextS" id="orderNo" value="${qry.orderNo}" />
-			<input type="button" class="btn1" value="添加" id="add_product"/>
-			<input type="button" class="btn1" value="选择添加" id="add_product"/>
-<div>			
-<div class="blank10"></div><div class="blank10"></div>
-<table border="0" cellspacing="0" cellpadding="0"  class="listTable" id="prodList">
-	<thead>
-		<tr>
-			<th class="center">商品条码</th>
-			<th class="center">商品编码</th>
-			<th class="center">商品名称</th>
-			<th class="center">规格</th>
-			<th class="center">品牌</th>
-			<th class="center">数量</th>
-			<th class="center">操作</th>
-		</tr>
-	</thead>
-	<tbody>
-	<tr class="newtr">
-		<td class="center">${b.productUk.prodBarcode}</td>
-		<td class="center"><input type="hidden" name="productCodeUk" value="${b.productUk.productCodeUk}"/>${b.productUk.productCodeUk}</td>
-		<td class="center">${b.productUk.product.name}</td>
-		<td class="center">${b.productUk.specification}</td>
-		<td class="center">${b.productUk.brand}</td>
-		<td class="center">
-		<input type="hidden" name="qtyold" value="${b.qty}"/>
-		<input type="text" name="qty_${b.productUk.productCodeUk}"  class="formTextSS" style="float:none;" onblur="edit(this,this.value)" value="${b.qty}"/></td>
-		<td class="center"><a href="#none" onclick="delRow(this)" class="ico ico-delete" title="删除"/></td>
-	</tr>
-	</tbody>
-	
-	<tfoot>
-		<tr>
-			<td class="center" colspan="7"><input type="submit" class="btn1" value="保 存"/><input type="button" class="btn1" value="返 回" onclick="history.go(-1)"/></td>
-		</tr>
-	</tfoot>
-</table>
+				
+				<div class="box-header left">入库商品明细<input type="button" class="btn1" value="添加明细" id="add_product"/></div>
+				<div class="box-content">
+				<table border="0" cellspacing="0" cellpadding="0"  class="listTable" id="prodList">
+					<thead>
+						<tr>
+							<th class="center">SKU码</th>
+							<th class="center">商品编码</th>
+							<th class="center">名称</th>
+							<th class="center">品牌/型号</th>
+							<th class="center">数量</th>
+							<th class="center">备注</th>
+							<th class="center">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+					</tbody>
+					
+					<tfoot>
+						<tr>
+							<td class="center" colspan="7"><input type="submit" class="btn1" value="保 存"/><input type="button" class="btn1" value="返 回" onclick="history.go(-1)"/></td>
+						</tr>
+					</tfoot>
+				</table>
+				</div>
 
 		</div>            
   	</div>

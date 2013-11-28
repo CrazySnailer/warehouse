@@ -142,10 +142,15 @@
 		</tr>
 		<tr>	
 			<td colspan="8">			
-			<input type="submit" id="searchButton" class="btn1" value="查 询"/>
-			<shiro:hasPermission name="wh:orderin:edit">
-			<input type="button" class="btn1" id="add_btn" value="新 增" onclick="$.launchPage('<%=path %>/warehouse/orderin_toAdd.action')" />
-			</shiro:hasPermission>	
+				<div class="buttons">
+	    			<button type="submit" class="positive" name="save">
+	        			<img src="<%=path %>/res/images/icon/search.png" alt=""/>查 询
+	    			</button>
+	
+	    			<a href="#none" onclick="$.launchPage('<%=path %>/warehouse/orderin_toAdd.action')" class="regular">
+	        			<img src="<%=path %>/res/images/icon/add.png" alt=""/>新 增
+	    			</a>
+				</div>
 			</td>
 		</tr>
 	</table>

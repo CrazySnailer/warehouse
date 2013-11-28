@@ -97,7 +97,6 @@
 				<th>商品名称</th>
 				<th>委托货主</th>
 				<th>供应商</th>
-				<th>仓库存放位置</th>
 				<th>品牌</th>
 				<th>型号</th>
 				<th>包装单位</th>
@@ -105,13 +104,12 @@
 			</tr>
 			<c:forEach items="${page.results}" var="b">
 			<tr>
-				<td class="center">${b.classId}</td>
+				<td class="center">${b.productClass.className}</td>
 				<td class="center">${b.productCode}</td>
 				<td class="center">${b.productSku}</td>
 				<td class="center">${b.productName}</td>
-				<td class="center">${b.trustId}</td>
-				<td class="center">${b.vendorId}</td>
-				<td class="center">${b.structId}</td>
+				<td class="center">${b.trust.trustName}</td>
+				<td class="center">${b.vendor.vendorName}</td>
 				<td class="center">${b.brandName}</td>
 				<td class="center">${b.modelNo}</td>
 				<td class="center">${b.unitName}</td>

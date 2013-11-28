@@ -10,5 +10,6 @@
 <script language="javascript" src="<%=path%>/res/js/jquery.validate.cn.js"></script>
 <script language="javascript" src="<%=path%>/res/js/jquery.autocomplete.js"></script>
 <script language="javascript" src="<%=path%>/res/js/jquery.colorbox.js?v=20120923"></script>
+<script language="javascript" src="<%=path%>/res/js/jquery.tmpl.min.js"></script>
 <script type='text/javascript' src='<%=path%>/res/js/My97DatePicker/WdatePicker.js'></script>
 <script language="javascript" src="<%=path%>/res/js/base.js?v=20120926"></script>
