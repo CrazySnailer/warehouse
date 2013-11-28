@@ -1,6 +1,8 @@
 package com.calf.framework.warehouse.services.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +20,25 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 	 * 查找分页信息
 	 */
 	public Page findProductPage(ProductQry qry){
-		Criteria criteria = hibernateDao.createCriteria(TbWhProduct.class);		
-		CriteriaUtils.addEq(criteria, "classId", qry.getClassId());
-		CriteriaUtils.addEq(criteria, "productCode", qry.getProductCode());
-		CriteriaUtils.addEq(criteria, "productName", qry.getProductName());
-		CriteriaUtils.addEq(criteria, "trustId", qry.getTrustId());
-		CriteriaUtils.addEq(criteria, "vendorId", qry.getVendorId());
+		Criteria criteria = hibernateDao.createCriteria(TbWhProduct.class);
+		criteria.createAlias("productClass", "productClass");
+		criteria.createAlias("trust", "trust", CriteriaSpecification.LEFT_JOIN);
+		criteria.createAlias("vendor", "vendor", CriteriaSpecification.LEFT_JOIN);
+		criteria.createAlias("whPlace", "whPlace", CriteriaSpecification.LEFT_JOIN);
+		
+		CriteriaUtils.addEq(criteria, "productClass.classId", qry.getClassId());
+		
+		CriteriaUtils.addFullLike(criteria, "productCode", qry.getProductCode());
+		CriteriaUtils.addFullLike(criteria, "productName", qry.getProductName());
+		
+		CriteriaUtils.addEq(criteria, "trust.trustId", qry.getTrustId());
+		CriteriaUtils.addEq(criteria, "vendor.vendorId", qry.getVendorId());
+		
+		//机构或者编码全比配
+		if(StringUtils.isNotBlank(qry.getCodeOrName())){
+			criteria.add(Restrictions.or(Restrictions.like("productCode", "%" + qry.getProductCode() + "%"), Restrictions.like("productName", "%" + qry.getProductName() + "%")));
+		}
+		
 		criteria.add(Restrictions.eq("dataStatus", Constants.YES));
 		CriteriaUtils.addOrder(criteria,qry.getOrderCol(),qry.getOrderType());
 		return super.hibernateDao.pagedQuery(criteria, qry.getPageNo(), qry.getPageSize());

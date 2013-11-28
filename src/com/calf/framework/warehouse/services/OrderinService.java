@@ -3,9 +3,10 @@ package com.calf.framework.warehouse.services;
 import java.util.List;
 
 import com.calf.framework.services.BaseService;
+import com.calf.framework.vo.Page;
+import com.calf.framework.warehouse.entity.TbWhOrderInD;
 import com.calf.framework.warehouse.entity.TbWhOrderInM;
 import com.calf.framework.warehouse.qry.OrderinQry;
-import com.calf.framework.vo.Page;
 
 public interface OrderinService extends BaseService{
 	/**
@@ -29,7 +30,7 @@ public interface OrderinService extends BaseService{
 	 * @param order
 	 * @return
 	 */
-	public List findOrderDetail(TbWhOrderInM order);
+	public List<TbWhOrderInD> findOrderDetail(TbWhOrderInM order);
 	/**
 	 * 判断编码是否唯一
 	 * @return

@@ -10,6 +10,7 @@ import com.calf.framework.dao.CriteriaUtils;
 import com.calf.framework.services.impl.BaseServiceImpl;
 import com.calf.framework.util.Constants;
 import com.calf.framework.vo.Page;
+import com.calf.framework.warehouse.entity.TbWhOrderInD;
 import com.calf.framework.warehouse.entity.TbWhOrderInM;
 import com.calf.framework.warehouse.qry.OrderinQry;
 import com.calf.framework.warehouse.services.OrderinService;
@@ -68,8 +69,8 @@ public class OrderinServiceImpl extends BaseServiceImpl implements OrderinServic
 	/**
 	 * 查找订单明细
 	 */
-	public List findOrderDetail(TbWhOrderInM order) {
-		return super.hibernateDao.find("from TbWhOrderInD d where d.");
+	public List<TbWhOrderInD> findOrderDetail(TbWhOrderInM order) {
+		return (List<TbWhOrderInD>)super.hibernateDao.find("from TbWhOrderInD d where d.order = ? order by d.orderDId asc");
 	}
 
 	/**

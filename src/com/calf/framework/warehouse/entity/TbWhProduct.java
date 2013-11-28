@@ -9,15 +9,16 @@ public class TbWhProduct implements java.io.Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7210248738007789556L;
+	private static final long serialVersionUID = 721087380077339556L;
 	/**
-	 * 主键 商品ID
+	 * 主键
+	 * 商品ID
 	 **/
 	Long productId;
 	/**
 	 * 所属分类
 	 **/
-	Long classId;
+	TbWhProductClass productClass;
 	/**
 	 * 管理部门
 	 **/
@@ -37,15 +38,15 @@ public class TbWhProduct implements java.io.Serializable {
 	/**
 	 * 委托货主
 	 **/
-	Long trustId;
+	TbWhTrust trust;
 	/**
 	 * 供应商
 	 **/
-	Long vendorId;
+	TbWhVendor vendor;
 	/**
 	 * 仓库存放位置
 	 **/
-	Long structId;
+	TbWhStruct whPlace;
 	/**
 	 * 价值
 	 **/
@@ -130,14 +131,6 @@ public class TbWhProduct implements java.io.Serializable {
 		this.productId = productId;
 	}
 
-	public Long getClassId() {
-		return this.classId;
-	}
-
-	public void setClassId(Long classId) {
-		this.classId = classId;
-	}
-
 	public Long getDeptId() {
 		return this.deptId;
 	}
@@ -170,28 +163,12 @@ public class TbWhProduct implements java.io.Serializable {
 		this.productName = productName;
 	}
 
-	public Long getTrustId() {
-		return this.trustId;
+	public TbWhProductClass getProductClass() {
+		return productClass;
 	}
 
-	public void setTrustId(Long trustId) {
-		this.trustId = trustId;
-	}
-
-	public Long getVendorId() {
-		return this.vendorId;
-	}
-
-	public void setVendorId(Long vendorId) {
-		this.vendorId = vendorId;
-	}
-
-	public Long getStructId() {
-		return this.structId;
-	}
-
-	public void setStructId(Long structId) {
-		this.structId = structId;
+	public void setProductClass(TbWhProductClass productClass) {
+		this.productClass = productClass;
 	}
 
 	public Double getProductCost() {
@@ -338,6 +315,30 @@ public class TbWhProduct implements java.io.Serializable {
 		this.updateDate = updateDate;
 	}
 
+	public TbWhTrust getTrust() {
+		return trust;
+	}
+
+	public void setTrust(TbWhTrust trust) {
+		this.trust = trust;
+	}
+
+	public TbWhVendor getVendor() {
+		return vendor;
+	}
+
+	public void setVendor(TbWhVendor vendor) {
+		this.vendor = vendor;
+	}
+
+	public TbWhStruct getWhPlace() {
+		return whPlace;
+	}
+
+	public void setWhPlace(TbWhStruct whPlace) {
+		this.whPlace = whPlace;
+	}
+
 	public String getProductCostStr() {
 		return FormateUtil.getInstance().formateDouble(this.productCost);
 	}
@@ -365,4 +366,5 @@ public class TbWhProduct implements java.io.Serializable {
 	public boolean isCanDelete() {
 		return "1".equals(this.dataStatus);
 	}
+
 }

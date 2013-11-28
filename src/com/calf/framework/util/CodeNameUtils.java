@@ -2,6 +2,8 @@ package com.calf.framework.util;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 public class CodeNameUtils {
 	private static CodeNameUtils instance;
 
@@ -97,6 +99,10 @@ public class CodeNameUtils {
 	 */
 	public boolean isIn(String value, String[] values) {
 		boolean result = false;
+		//为NULL直接返回FALSE
+		if(StringUtils.isBlank(value)){
+			return false;
+		}
 		for (int i = 0; i < values.length; i++) {
 			if (value.equals(values[i])) {
 				result = true;

@@ -49,6 +49,7 @@
 			<result name="edit">/jsp/warehouse/product/edit.jsp</result>
 			<result name="list">/jsp/warehouse/product/list.jsp</result>
 			<result name="view">/jsp/warehouse/product/view.jsp</result>
+			<result name="selectSingle">/jsp/warehouse/product/selectSingle.jsp</result>
 		</action>
 		
 		<!--仓库-->
@@ -76,6 +77,9 @@
 			<result name="edit">/jsp/warehouse/orderin/edit.jsp</result>
 			<result name="list">/jsp/warehouse/orderin/list.jsp</result>
 			<result name="view">/jsp/warehouse/orderin/view.jsp</result>
+			<result name="editDetail">/jsp/warehouse/orderin/editDetail.jsp</result>
+			<result name="listDetail">/jsp/warehouse/orderin/listDetail.jsp</result>
+			<result name="viewDetail">/jsp/warehouse/orderin/viewDetail.jsp</result>
 		</action>
 		
 		<!-- 验货处理 -->

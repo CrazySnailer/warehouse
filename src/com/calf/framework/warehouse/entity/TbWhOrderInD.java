@@ -6,16 +6,12 @@ public class TbWhOrderInD implements java.io.Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7210248768007789556L;
+	private static final long serialVersionUID = 721024338007789556L;
 
 	/**
 	 * 主键 订单字表ID
 	 **/
 	Long orderDId;
-	/**
-	 * 订单ID
-	 **/
-	Long orderId;
 	/**
 	 * 订单
 	 */
@@ -23,7 +19,7 @@ public class TbWhOrderInD implements java.io.Serializable {
 	/**
 	 * 商品ID
 	 **/
-	Long productId;
+	TbWhProduct product;
 	/**
 	 * 数量
 	 **/
@@ -52,28 +48,20 @@ public class TbWhOrderInD implements java.io.Serializable {
 		this.orderDId = orderDId;
 	}
 
-	public Long getOrderId() {
-		return this.orderId;
-	}
-
-	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
-	}
-
-	public Long getProductId() {
-		return this.productId;
-	}
-
-	public void setProductId(Long productId) {
-		this.productId = productId;
-	}
-
 	public Long getQty() {
 		return this.qty;
 	}
 
 	public void setQty(Long qty) {
 		this.qty = qty;
+	}
+
+	public TbWhProduct getProduct() {
+		return product;
+	}
+
+	public void setProduct(TbWhProduct product) {
+		this.product = product;
 	}
 
 	public Double getProductValue() {
@@ -113,7 +101,11 @@ public class TbWhOrderInD implements java.io.Serializable {
 	}
 
 	public String getAmtStr() {
-		return FormateUtil.getInstance().formateDouble(this.amt);
+		if(this.productValue!=null&&this.qty!=null){
+			return FormateUtil.getInstance().formateDouble(this.productValue*this.qty);
+		}else{
+			return "0.00";
+		}
 	}
 
 }

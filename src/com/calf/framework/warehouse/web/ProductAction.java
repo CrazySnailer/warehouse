@@ -4,16 +4,21 @@ import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.calf.framework.exception.AlertException;
+import com.calf.framework.util.CodeNameUtils;
 import com.calf.framework.util.Constants;
 import com.calf.framework.util.ObjectUtils;
 import com.calf.framework.vo.AdminUserInfo;
 import com.calf.framework.vo.Page;
 import com.calf.framework.warehouse.entity.TbWhProduct;
+import com.calf.framework.warehouse.entity.TbWhProductClass;
+import com.calf.framework.warehouse.entity.TbWhStruct;
+import com.calf.framework.warehouse.entity.TbWhTrust;
+import com.calf.framework.warehouse.entity.TbWhVendor;
 import com.calf.framework.warehouse.qry.ProductQry;
 import com.calf.framework.warehouse.services.ProductService;
 import com.calf.framework.web.BaseAction;
 import com.calf.framework.web.util.RequiresPermissions;
-
 
 public class ProductAction extends BaseAction {
 
@@ -24,6 +29,10 @@ public class ProductAction extends BaseAction {
 		Page page;
 
 		TbWhProduct entity;
+		
+		String uri;
+		
+		public static final String[] URI_ARRAY = {"selectSingle"};
 		
 		/**
 		 * 列表
@@ -84,6 +93,32 @@ public class ProductAction extends BaseAction {
 				entity.setDataStatus(Constants.YES);
 				entity.setCreateUser(userInfo.getUserId());
 				entity.setCreateDate(new Date());
+				entity.setDeptId(userInfo.getDeptId());
+				
+				//商品分类
+				entity.setProductClass(productService.get(TbWhProductClass.class, entity.getProductClass().getClassId()));
+				
+				//委托业主
+				if(entity.getTrust().getTrustId()!=null){
+					entity.setTrust(productService.get(TbWhTrust.class, entity.getTrust().getTrustId()));
+				}else{
+					entity.setTrust(null);
+				}
+				
+				//供应商
+				if(entity.getVendor().getVendorId()!=null){
+					entity.setVendor(productService.get(TbWhVendor.class, entity.getVendor().getVendorId()));
+				}else{
+					entity.setVendor(null);
+				}
+				
+				//存放位置
+				if(entity.getWhPlace().getStructId()!=null){
+					entity.setWhPlace(productService.get(TbWhStruct.class, entity.getWhPlace().getStructId()));
+				}else{
+					entity.setWhPlace(null);
+				}
+				
 				productService.saveProduct(entity);
 				super.addAttribute("qry.orderCol", "createDate");
 				super.addAttribute("qry.orderType", "0");
@@ -93,14 +128,14 @@ public class ProductAction extends BaseAction {
 				TbWhProduct db = productService.get(TbWhProduct.class,entity.getProductId());
 				
 				db.setProductId(entity.getProductId());
-				db.setClassId(entity.getClassId());
+				//db.setClassId(entity.getClassId());
 				db.setDeptId(entity.getDeptId());
 				db.setProductCode(entity.getProductCode());
 				db.setProductSku(entity.getProductSku());
 				db.setProductName(entity.getProductName());
-				db.setTrustId(entity.getTrustId());
+				/*db.setTrustId(entity.getTrustId());
 				db.setVendorId(entity.getVendorId());
-				db.setStructId(entity.getStructId());
+				db.setStructId(entity.getStructId());*/
 				db.setProductCost(entity.getProductCost());
 				db.setBrandName(entity.getBrandName());
 				db.setModelNo(entity.getModelNo());
@@ -163,6 +198,32 @@ public class ProductAction extends BaseAction {
 			return null;
 		}
 		
+		/**
+		 * 选择商品信息.
+		 */
+		public String select()throws Exception {
+			if(!CodeNameUtils.getInstance().isIn(uri, URI_ARRAY)){
+				throw new AlertException("非法参数");
+			}
+			AdminUserInfo userInfo = super.getUserInfo();		
+			
+			if(qry==null){
+				qry = new ProductQry();
+				qry.setOrderCol("createDate");
+				qry.setOrderType(Constants.DESC);
+			}
+			
+			//设置默认排序号
+			if(StringUtils.isBlank(qry.getOrderCol())){
+				qry.setOrderCol("createDate");
+				qry.setOrderType(Constants.DESC);
+			}
+			
+			qry.setUserInfo(userInfo);
+			page = productService.findProductPage(qry);
+			return uri;
+		}
+		
 		public ProductQry getQry(){
 			return this.qry;
 		}
@@ -188,4 +249,10 @@ public class ProductAction extends BaseAction {
 		public void setEntity(TbWhProduct entity){
 			this.entity = entity;
 		}
+		public String getUri() {
+			return uri;
+		}
+		public void setUri(String uri) {
+			this.uri = uri;
+		}		
 }

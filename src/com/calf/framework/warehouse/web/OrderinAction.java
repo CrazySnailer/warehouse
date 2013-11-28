@@ -1,5 +1,6 @@
 package com.calf.framework.warehouse.web;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +10,9 @@ import com.calf.framework.util.Constants;
 import com.calf.framework.util.ObjectUtils;
 import com.calf.framework.vo.AdminUserInfo;
 import com.calf.framework.vo.Page;
+import com.calf.framework.warehouse.entity.TbWhOrderInD;
 import com.calf.framework.warehouse.entity.TbWhOrderInM;
+import com.calf.framework.warehouse.entity.TbWhProduct;
 import com.calf.framework.warehouse.entity.TbWhWarehouse;
 import com.calf.framework.warehouse.qry.OrderinQry;
 import com.calf.framework.warehouse.services.OrderinService;
@@ -22,7 +25,11 @@ public class OrderinAction extends BaseAction {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3499001652235764477L;
+	private static final long serialVersionUID = -3499001652235764477L;	
+	/**
+	 * 模块临时SESSION
+	 */
+	private static final String MOD_SESSION_NAME = "com.calf.framework.warehouse.web.OrderinAction";
 
 	OrderinService orderinService;
 	
@@ -35,6 +42,10 @@ public class OrderinAction extends BaseAction {
 	TbWhOrderInM entity;
 	
 	List<TbWhWarehouse> warehouseList;
+	
+	List<TbWhOrderInD> detailList;
+	
+	TbWhOrderInD detail;
 
 	/**
 	 * 列表
@@ -70,6 +81,7 @@ public class OrderinAction extends BaseAction {
 	@RequiresPermissions(value = "wh:orderin:edit", requiresUser = true)
 	public String toAdd() throws Exception {
 		AdminUserInfo userInfo = super.getUserInfo();
+		removeSession();
 		entity = new TbWhOrderInM();
 		entity.setOrderDate(new Date());
 		this.warehouseList = this.warehouseService.findAllPhysicsWarehouse(userInfo);
@@ -84,8 +96,11 @@ public class OrderinAction extends BaseAction {
 	@RequiresPermissions(value = "wh:orderin:edit", requiresUser = true)
 	public String toEdit() throws Exception {
 		AdminUserInfo userInfo = super.getUserInfo();
+		removeSession();
 		entity = orderinService.get(TbWhOrderInM.class, entity.getOrderId());		
-		this.warehouseList = this.warehouseService.findAllPhysicsWarehouse(userInfo);		
+		this.warehouseList = this.warehouseService.findAllPhysicsWarehouse(userInfo);
+		this.detailList = this.orderinService.findOrderDetail(entity);
+		getSession().setAttribute(MOD_SESSION_NAME, detailList);//将明细放置到SESSION中
 		super.event = "EDIT";
 		super.title = "修改入库订单";
 		return "edit";
@@ -137,8 +152,18 @@ public class OrderinAction extends BaseAction {
 			super.saveMessage("入库订单保存成功");
 			super.addAttribute("qryHex", super.qryHex);
 		}
+		
+		this.removeSession();
+		
 		super.redirectUrl = "/warehouse/orderin_list.action";
 		return super.GLOBAL_SUCCESS;
+	}
+	
+	/**
+	 * 移除SESSION
+	 */
+	private void removeSession(){
+		getSession().removeAttribute(MOD_SESSION_NAME);
 	}
 
 	/**
@@ -170,14 +195,108 @@ public class OrderinAction extends BaseAction {
 
 	/**
 	 * 判断是否唯一
-	 * 
 	 * @return
 	 */
+	@RequiresPermissions(value = "wh:orderin:view", requiresUser = true)
 	public String checkUnique() throws Exception {
 		AdminUserInfo userInfo = super.getUserInfo();
 		boolean isCorrect = orderinService.isUnique(entity.getOrderId());
 		super.rendText(String.valueOf(isCorrect));
 		return null;
+	}
+	
+	/**
+	 * 子表列表
+	 * @return
+	 * @throws Exception
+	 */
+	@RequiresPermissions(value = "wh:orderin:view", requiresUser = true)
+	public String listDetail()throws Exception {
+		detailList = (List<TbWhOrderInD>)super.getSession().getAttribute(MOD_SESSION_NAME);
+		return "listDetail";
+	}
+	
+	/**
+	 * 新增明细
+	 **/
+	@RequiresPermissions(value = "wh:orderin:edit", requiresUser = true)
+	public String toAddDetail() throws Exception {
+		AdminUserInfo userInfo = super.getUserInfo();
+		detail = new TbWhOrderInD();
+		super.event = "ADD";
+		super.title = "新增订单明细";
+		return "editDetail";
+	}
+	
+	/**
+	 * 修改明细
+	 **/
+	@RequiresPermissions(value = "wh:orderin:edit", requiresUser = true)
+	public String toEditDetail() throws Exception {
+		AdminUserInfo userInfo = super.getUserInfo();
+		detailList = (List<TbWhOrderInD>)super.getSession().getAttribute(MOD_SESSION_NAME);
+		if(detailList!=null){
+			int index = Integer.parseInt(super.getRequest().getParameter("index"));
+			detail = detailList.get(index);
+		}
+		super.event = "EDIT";
+		super.title = "修改订单明细";
+		return "editDetail";
+	}
+	
+	/**
+	 * 添加主记录
+	 * @return
+	 * @throws Exception
+	 */
+	@RequiresPermissions(value = "wh:orderin:edit", requiresUser = true)
+	public String editDetail()throws Exception {
+		detailList = (List<TbWhOrderInD>)super.getSession().getAttribute(MOD_SESSION_NAME);
+		
+		if ("ADD".equals(super.event)) {		
+			if(detailList==null){
+				detailList = new ArrayList<TbWhOrderInD>();			
+			}
+			TbWhProduct tproduct = this.orderinService.get(TbWhProduct.class, detail.getProduct().getProductId());
+			detail.setProduct(tproduct);
+			detail.setProductValue(tproduct.getProductCost());
+			detailList.add(detail);
+		}else{
+			int index = Integer.parseInt(super.getRequest().getParameter("index"));
+			TbWhProduct tproduct = this.orderinService.get(TbWhProduct.class, detail.getProduct().getProductId());
+			detail.setProduct(tproduct);
+			detail.setProductValue(tproduct.getProductCost());
+			detailList.set(index, detail);
+		}
+		super.getSession().setAttribute(MOD_SESSION_NAME, detailList);
+		super.saveMessage("订单明细保存成功");
+		super.getRequest().setAttribute("autoclose", true);
+		return super.GLOBAL_SUCCESS;
+	}
+	/**
+	 * 删除记录
+	 */
+	@RequiresPermissions(value = "wh:orderin:edit", requiresUser = true)
+	public String deleteDetail()throws Exception {
+		detailList = (List<TbWhOrderInD>)super.getSession().getAttribute(MOD_SESSION_NAME);
+		if(detailList!=null){
+			int index = Integer.parseInt(super.getRequest().getParameter("index"));
+			detailList.remove(index);
+		}
+		super.rendText("OK");
+		return null;
+	}
+	/**
+	 * 查看明细数据
+	 */
+	@RequiresPermissions(value = "wh:orderin:view", requiresUser = true)
+	public String viewDetail()throws Exception{
+		detailList = (List<TbWhOrderInD>)super.getSession().getAttribute(MOD_SESSION_NAME);
+		if(detailList!=null){
+			int index = Integer.parseInt(super.getRequest().getParameter("index"));
+			detail = detailList.get(index);
+		}
+		return "viewDetail";
 	}
 
 	public OrderinQry getQry() {
@@ -227,4 +346,22 @@ public class OrderinAction extends BaseAction {
 	public void setEntity(TbWhOrderInM entity) {
 		this.entity = entity;
 	}
+
+	public List<TbWhOrderInD> getDetailList() {
+		return detailList;
+	}
+
+	public void setDetailList(List<TbWhOrderInD> detailList) {
+		this.detailList = detailList;
+	}
+
+	public TbWhOrderInD getDetail() {
+		return detail;
+	}
+
+	public void setDetail(TbWhOrderInD detail) {
+		this.detail = detail;
+	}
+	
+	
 }
