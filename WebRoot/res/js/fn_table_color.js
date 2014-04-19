@@ -1,8 +1,8 @@
 $.fn.colorTable=function(params){
    //默认参数
    var options={
-       hoverColor:'#bbb',
-       ovenColor:'#eee'
+       hoverColor:'#D1EEEE',
+       ovenColor:'#FbFbFb'
     };
     //用传递过来的参数 覆盖 默认参数
     $.extend(options, params);

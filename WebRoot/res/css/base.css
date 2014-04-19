@@ -2,6 +2,7 @@
 /**
  * http://themeforest.net/item/mustache-admin/full_screen_preview/1614352
  */
+html{color:#000;background:#FFF}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}q:before,q:after{content:''}abbr,acronym{border:0;font-variant:normal}sup{vertical-align:text-top}sub{vertical-align:text-bottom}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;*font-size:100%}legend{color:#000}#yui3-css-stamp.cssreset{display:none}
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,code,del,dfn,em,img,q,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td
 {
 	margin: 0px;
@@ -151,22 +152,24 @@ table.editTable th {
 }
 
 table.listTable th {
-	background: transparent url(../images/tit_mid.png) repeat-x 0 -1px;
-	border: 1px solid #E6E6E6;
+	color: #000;
+	padding: 5px 3px 4px 5px;
+	line-height: 20px;
+	background: url('../images/report_nav.png') 0 -5px repeat-x;
+	border: 1px solid #ccc;
 	border-collapse: collapse;
-	height: 33px;
-	padding: 0px 5px;
-	color: #fff;
-	vertical-align: middle;
-	font-size: 14px;
+	text-align:center;
+	font-size:14px;
+	font-weight:bold;
 }
 
 table.qryTable th{
-	color: #15428b;
+	color: #182B49;
 	padding: 5px 3px 4px 5px;
 	line-height: 15px;
 	border-collapse: collapse;
 	background:url('../images/box-title.gif') repeat-x;
+	font-weight: bold;
 }
 
 table.listTable th .simple,table.qryTable th .simple,table.editTable th.simple{
@@ -231,10 +234,9 @@ table.qryTable td,table.editTable td {
 
 table.qryTable td{
 	border:0px;
-	text-align: left;
 }
 
-table.editTable .right {
+table.editTable table.qryTable .right {
 	padding-right:10px;
 }
 
@@ -252,11 +254,12 @@ table.editTable td.viewheader{
 	color: #fff;
 	cursor: pointer;
 	vertical-align: middle;
-	background-color: #2575CF;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	height: 25px;
+	background-color: #0033FF;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	border:1 solid #330099;
+	height: 28px;
 	background-image: url(../images/button_highlighter.png);
 	background-repeat: repeat-x;
 	margin-top: 0px;
@@ -280,7 +283,7 @@ table.editTable td.viewheader{
 
 .buttonInput:hover {
 		color: #fff;
-		background-color: #C81E82;/*#2575CF;#C81E82;*/
+		background-color: #3366FF;/*#2575CF;#C81E82;*/
 }
 
 ul.pages {
@@ -851,7 +854,7 @@ input.btn2 { float: none;background: url(../images/btn_bg_1.png) 0 -100px; borde
 
 
 /*------------------------通用圆角矩形 ------------------------*/
-.frameShadow { /*{ 设置底部阴影 }*/ border-bottom: 2px solid #cfcfcf; position: relative; margin-bottom: 15px; height: 1%; /*{ Hack in IE6,保证圆角定位 }*/ clear: both; }
+.frameShadow { /*{ 设置底部阴影 }*/ border-bottom: 2px solid #F3F0F0; position: relative; margin-bottom: 8px; height: 1%; /*{ Hack in IE6,保证圆角定位 }*/ clear: both; }
 .corner-1, .corner-2, .corner-3, .corner-4 { /*{ 设置圆角通用属性 }*/ background: url(../images/corner-gray.gif) no-repeat; position: absolute; z-index: 1; font-size: 0; /*{ Hack in IE6 }*/ }
 .corner-1, .corner-2 { height: 3px; width: 3px; top: 0; }
 .corner-3, .corner-4 { height: 5px; width: 3px; bottom: -2px; }
@@ -859,7 +862,7 @@ input.btn2 { float: none;background: url(../images/btn_bg_1.png) 0 -100px; borde
 .corner-2 { background-position: -3px 0; right: 0 !important; /*{ Hack in IE 6 }*/ }
 .corner-3 { background-position: 0 -3px; left: 0; }
 .corner-4 { background-position: -3px -3px; right: 0 !important; /*{ Hack in IE 6 }*/ }
-.frame_profile { /*{ 设置矩形边框 }*/ border: 1px solid #ccc; background: #fff; height: 1%; }
+.frame_profile { /*{ 设置矩形边框 }*/ border: 1px solid #ccc; background: #fff; height: 1%; padding:3px;}
 .profile_left { width: 439px; border-right: 1px solid #ccc; float: left; padding: 20px; }
 .profile_left .field1{ padding-left:15px;}
 
