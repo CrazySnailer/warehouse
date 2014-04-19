@@ -8,7 +8,7 @@
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
-<link href="<%=path%>/res/css/base.css" rel="stylesheet" type="text/css"/>
+<link href="<%=path%>/res/css/base.css?d2dddd" rel="stylesheet" type="text/css"/>
 <link href="<%=path%>/res/css/colorbox.css" rel="stylesheet" type="text/css"/>
 <%@ include file="/jsp/include/basejs.jsp" %>
 <script type="text/javascript">

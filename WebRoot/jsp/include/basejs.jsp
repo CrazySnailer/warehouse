@@ -2,7 +2,7 @@
 <script language="javascript" src="<%=path%>/res/js/jquery.alerts.js"></script>
 <script language="javascript" src="<%=path%>/res/js/jquery.cookie.js"></script>
 <script language="javascript" src="<%=path%>/res/js/jquery.hotkeys.js"></script>
-<script language="javascript" src="<%=path%>/res/js/fn_table_color.js"></script>
+<script language="javascript" src="<%=path%>/res/js/fn_table_color.js?201404191ddd"></script>
 <script language="javascript" src="<%=path%>/res/js/jquery.pager.js"></script>
 <script language="javascript" src="<%=path%>/res/js/jquery.metadata.js"></script>
 <script language="javascript" src="<%=path%>/res/js/jquery.validate.js"></script>
